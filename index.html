@@ -73,11 +73,12 @@
             transform: scale(1.05);
         }
 
-        /* Subtle organic patterns */
-        .bg-pattern {
-            background-image: radial-gradient(#E09F7D 0.8px, transparent 0.8px);
-            background-size: 24px 24px;
-            opacity: 0.3;
+        /* NEW organic wavy line pattern – fresh & nature inspired */
+        .bg-wavy-pattern {
+            background-color: #e6f0e6;  /* soft light green base */
+            background-image:  repeating-linear-gradient(45deg, rgba(39, 174, 96, 0.08) 0px, rgba(39, 174, 96, 0.08) 2px, transparent 2px, transparent 6px),
+                               repeating-linear-gradient(135deg, rgba(214, 210, 164, 0.1) 0px, rgba(214, 210, 164, 0.1) 4px, transparent 4px, transparent 12px);
+            background-size: 20px 20px, 40px 40px;
         }
 
         /* Animations */
@@ -88,9 +89,17 @@
         .animate-float {
             animation: float 6s ease-in-out infinite;
         }
+        /* Hide scroll for reviews */
+        .hide-scroll::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scroll {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
     </style>
 </head>
-<body class="overflow-x-hidden antialiased">
+<body class="overflow-x-hidden antialiased bg-wavy-pattern">
 
     <!-- Floating Navigation -->
     <nav class="fixed w-full z-50 top-0 pt-4 px-4">
@@ -117,7 +126,7 @@
 <br>
     <!-- Hero Section -->
     <section id="home" class="relative min-h-screen flex items-center pt-24 pb-12 overflow-hidden">
-        <div class="absolute inset-0 bg-pattern z-0"></div>
+        <!-- original bg-pattern class removed, now body provides wavy background -->
         
         <!-- Organic Blobs Background -->
         <div class="absolute top-0 right-0 w-[40rem] h-[40rem] bg-brand-sage rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float translate-x-1/3 -translate-y-1/4"></div>
@@ -476,6 +485,8 @@
     </div>
 
 </div>
+        </div>
+    </section>
 
     <!-- Testimonials / Customer Love -->
     <section id="reviews" class="py-24 bg-brand-sage/20 relative overflow-hidden">
