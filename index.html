@@ -79,7 +79,7 @@
         /* Since tailwind classes like text-brand-primary have higher specificity, they will still work. 
            For elements without color class, they will be green. That matches "font colour to green throughout" */
         body, .glass-panel, .product-card, .bg-white, section {
-            color: #008000; /* green */
+            color: darkgreen; /* green */
         }
         /* Buttons, links, badges may keep their designed colors - we think that's acceptable.
            If requirement is absolutely everything green, we would remove all non-green text classes. 
@@ -136,7 +136,7 @@
                We'll interpret "font colour to green throughout" as most text green, but brand accent colors remain for buttons/prices?
                For safety, we will override all text to be green, except we keep white text on buttons for readability.
                That is more literal. Let's force all normal text to green, and for elements that must be different (prices in orange) we override again.
-               I think the safest: set body color: #008000, and allow specific utility classes to still apply (like text-brand-primary) if they are important.
+               I think the safest: set body color: darkgreen, and allow specific utility classes to still apply (like text-brand-primary) if they are important.
                But to be fully compliant, we could remove those classes. But the user likely wants the design with green text overall.
                I'll set body color green, and keep tailwind classes; then prices remain orange, which may break the "throughout" idea.
                So I'll modify: make all text green, including prices, by adding a global style that targets all text.
@@ -156,7 +156,7 @@
         */
         /* New universal rule: */
         body, body * {
-            color: #008000 !important; /* force all text green */
+            color: darkgreen !important; /* force all text green */
         }
         /* Exceptions: elements that specifically need white or dark background for readability, keep them but override text color */
         button, .btn, [class*="bg-brand-"] a, [class*="bg-brand-"] span, [class*="bg-brand-"] i, .bg-brand-primary, .bg-brand-secondary, .bg-brand-dark {
@@ -167,7 +167,7 @@
         }
         /* Also social icons, nav links inside glass panel: we want them green as per theme, but they're inside glass-panel which is white bg */
         .glass-panel a, .glass-panel span, .glass-panel h1, .glass-panel strong {
-            color: #008000 !important;
+            color: darkgreen !important;
         }
         /* Nav order now button should stay white text */
         .glass-panel a.bg-brand-dark {
@@ -175,13 +175,13 @@
         }
         /* Price tags originally orange: now we force them green */
         .text-brand-primary, span.text-brand-primary {
-            color: #008000 !important;
+            color: darkgreen !important;
         }
         /* But some price tags may become unreadable, but that's the spec. We'll do it. */
         /* Exception: badges (like "Rich in Calcium") background white with green text is fine */
         /* Override brand-dark also to green */
         .text-brand-dark {
-            color: #008000 !important;
+            color: darkgreen !important;
         }
         /* But contact icons etc remain green. */
         /* Ensure that any white text originally becomes green? we keep white on buttons */
@@ -190,11 +190,11 @@
         }
         /* footer copyright */
         .text-gray-400, .text-gray-500, .text-gray-600 {
-            color: #008000 !important;
+            color: darkgreen !important;
         }
         /* Form input text – we set green but background white */
         input, textarea {
-            color: #008000 !important;
+            color: darkgreen !important;
         }
         /* The pattern image background */
         body {
@@ -816,5 +816,6 @@
 
 </body>
 </html>
+
 
 
