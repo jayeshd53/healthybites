@@ -10,34 +10,30 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <style>
-        /* [Existing background removal] – all previous .bg-pattern, .hero-section background removed.
-           New global background: pattern image tiled softly via body pseudo element.
-           All white/colored panels keep their own background, but body background is now patter.jpeg */
         body {
             font-family: 'Nunito', sans-serif;
             color: #0c5900;
             scroll-behavior: smooth;
-            background-color: #F9F5F0; /* fallback */
+            background-color: #F9F5F0;
             position: relative;
             z-index: 0;
         }
-        /* Subtle pattern overlay on entire page background */
+        /* Subtle pattern overlay */
         body::before {
             content: "";
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background-image: url('patter.jpeg');
             background-repeat: repeat;
-            background-size: auto;        /* keeps original tile size – you can adjust */
-            opacity: 0.25;                 /* gentle so content remains readable */
+            background-size: auto;
+            opacity: 0.25;
             pointer-events: none;
             z-index: -2;
         }
-        /* additionally ensure no stray background-image from old classes */
+        
         .hero-section, [class*="bg-pattern"], .absolute.inset-0.bg-pattern {
             background-image: none !important;
         }
-        /* all existing colored blobs, panels keep their intended background (glass, white, brand) – only body backdrop changes */
         
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Playfair Display', serif;
@@ -82,15 +78,21 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
+        
+        /* Specific Styles for Buttons */
+        .weight-btn {
+            transition: all 0.2s ease;
+        }
+        .order-btn:active {
+            transform: scale(0.98);
+        }
     </style>
 </head>
 <body class="overflow-x-hidden antialiased">
 
-    <!-- Floating Navigation -->
     <nav class="fixed w-full z-50 top-0 pt-4 px-4">
         <div class="glass-panel container mx-auto px-6 py-3 rounded-full flex justify-between items-center shadow-soft max-w-5xl">
             <div class="flex items-center gap-2">
-                <!-- Logo Image Placeholder -->
                 <img src="healthy.png" alt="Healthy Bites Logo" class="h-10 w-auto object-contain">
                 <h1><strong>Healthy Bites</strong></h1>
             </div>
@@ -109,11 +111,8 @@
         </div>
     </nav>
 <br>
-    <!-- Hero Section -->
     <section id="home" class="relative min-h-screen flex items-center pt-24 pb-12 overflow-hidden">
-        <!-- removed .bg-pattern div, now body background covers it -->
         
-        <!-- Organic Blobs Background (keep, they float above pattern) -->
         <div class="absolute top-0 right-0 w-[40rem] h-[40rem] bg-brand-sage rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float translate-x-1/3 -translate-y-1/4"></div>
         <div class="absolute bottom-0 left-0 w-[30rem] h-[30rem] bg-brand-terracotta rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float translate-y-1/4 -translate-x-1/4" style="animation-delay: 2s;"></div>
 
@@ -168,7 +167,6 @@
                 <div class="md:w-1/2 relative">
                     <div class="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white">
 
-                        <!-- Slides -->
                         <div id="slider" class="flex transition-transform duration-700 ease-in-out">
                             <img src="https://asmitaorganicfarm.com/cdn/shop/articles/recipes-banner_Ragi-ladoo_V1.webp?v=1761910185&width=1100" class="w-full flex-shrink-0 object-cover hover:scale-105 transition-transform duration-700">
                             <img src="https://www.cookwithkushi.com/wp-content/uploads/2019/09/Sunnundalu_Urad_Dal_Laddu_indian_sweet.jpg" class="w-full flex-shrink-0 object-cover hover:scale-105 transition-transform duration-700">
@@ -189,7 +187,6 @@
                             <img src="soya.jpeg" class="w-full flex-shrink-0 object-cover hover:scale-105 transition-transform duration-700">
                         </div>
 
-                        <!-- Navigation Buttons -->
                         <button onclick="prevSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 rounded-full px-4 py-2 shadow">❮</button>
                         <button onclick="nextSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 rounded-full px-4 py-2 shadow">❯</button>
 
@@ -236,7 +233,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Nachani Laddu" data-weight="250g" data-price="175">
+            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Nachani Laddu" data-weight="" data-price="">
                 <div class="h-64 rounded-xl overflow-hidden relative mb-4">
                     <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-brand-dark z-10 shadow-sm">
                         <i class="fas fa-bone text-brand-primary mr-1"></i> Rich in Calcium
@@ -251,7 +248,7 @@
                     <p class="text-sm text-gray-500 mb-4 line-clamp-2">Wholesome Ragi millet laddus perfect for strengthening bones.</p>
                     
                     <div class="flex gap-2 mb-3 weight-options">
-                        <button onclick="selectWeight(this, '250g', 175)" class="weight-btn flex-1 py-2 text-sm bg-brand-dark text-white rounded-lg transition-all shadow-md">250g (₹175)</button>
+                        <button onclick="selectWeight(this, '250g', 175)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">250g (₹175)</button>
                         <button onclick="selectWeight(this, '500g', 350)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">500g (₹350)</button>
                         <button onclick="selectWeight(this, '1kg', 700)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">1kg (₹700)</button>
                     </div>
@@ -260,7 +257,7 @@
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Udid Dal Laddu" data-weight="250g" data-price="175">
+            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Udid Dal Laddu" data-weight="" data-price="">
                 <div class="h-64 rounded-xl overflow-hidden relative mb-4">
                     <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-brand-dark z-10 shadow-sm">
                         <i class="fas fa-dumbbell text-brand-secondary mr-1"></i> High Protein
@@ -275,7 +272,7 @@
                     <p class="text-sm text-gray-500 mb-4 line-clamp-2">Traditional black gram laddus, excellent for energy and muscle health.</p>
                     
                     <div class="flex gap-2 mb-3 weight-options">
-                        <button onclick="selectWeight(this, '250g', 175)" class="weight-btn flex-1 py-2 text-sm bg-brand-dark text-white rounded-lg transition-all shadow-md">250g (₹175)</button>
+                        <button onclick="selectWeight(this, '250g', 175)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">250g (₹175)</button>
                         <button onclick="selectWeight(this, '500g', 350)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">500g (₹350)</button>
                         <button onclick="selectWeight(this, '1kg', 700)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">1kg (₹700)</button>
                     </div>
@@ -284,7 +281,7 @@
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Dink Laddu" data-weight="250g" data-price="250">
+            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Dink Laddu" data-weight="" data-price="">
                 <div class="h-64 rounded-xl overflow-hidden relative mb-4">
                     <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-brand-dark z-10 shadow-sm">
                         <i class="fas fa-snowflake text-blue-400 mr-1"></i> Joint Health
@@ -299,7 +296,7 @@
                     <p class="text-sm text-gray-500 mb-4 line-clamp-2">Edible gum laddus, a winter superfood for joints and immunity.</p>
                     
                     <div class="flex gap-2 mb-3 weight-options">
-                        <button onclick="selectWeight(this, '250g', 250)" class="weight-btn flex-1 py-2 text-sm bg-brand-dark text-white rounded-lg transition-all shadow-md">250g (₹250)</button>
+                        <button onclick="selectWeight(this, '250g', 250)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">250g (₹250)</button>
                         <button onclick="selectWeight(this, '500g', 500)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">500g (₹500)</button>
                         <button onclick="selectWeight(this, '1kg', 1000)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">1kg (₹1000)</button>
                     </div>
@@ -308,7 +305,7 @@
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Shengada Laddu" data-weight="250g" data-price="100">
+            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Shengada Laddu" data-weight="" data-price="">
                 <div class="h-64 rounded-xl overflow-hidden relative mb-4">
                     <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-brand-dark z-10 shadow-sm">
                         <i class="fas fa-om text-orange-500 mr-1"></i> Fasting Special
@@ -323,7 +320,7 @@
                     <p class="text-sm text-gray-500 mb-4 line-clamp-2">Classic Peanut laddus rich in protein and healthy fats.</p>
                     
                     <div class="flex gap-2 mb-3 weight-options">
-                        <button onclick="selectWeight(this, '250g', 100)" class="weight-btn flex-1 py-2 text-sm bg-brand-dark text-white rounded-lg transition-all shadow-md">250g (₹100)</button>
+                        <button onclick="selectWeight(this, '250g', 100)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">250g (₹100)</button>
                         <button onclick="selectWeight(this, '500g', 200)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">500g (₹200)</button>
                         <button onclick="selectWeight(this, '1kg', 400)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">1kg (₹400)</button>
                     </div>
@@ -332,7 +329,7 @@
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Dryfruits Laddu" data-weight="250g" data-price="275">
+            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Dryfruits Laddu" data-weight="" data-price="">
                 <div class="h-64 rounded-xl overflow-hidden relative mb-4">
                     <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-brand-dark z-10 shadow-sm">
                         <i class="fas fa-bolt text-yellow-500 mr-1"></i> Energy Booster
@@ -347,7 +344,7 @@
                     <p class="text-sm text-gray-500 mb-4 line-clamp-2">A premium mix of almonds, cashews, pistachios, and figs.</p>
                     
                     <div class="flex gap-2 mb-3 weight-options">
-                        <button onclick="selectWeight(this, '250g', 275)" class="weight-btn flex-1 py-2 text-sm bg-brand-dark text-white rounded-lg transition-all shadow-md">250g (₹275)</button>
+                        <button onclick="selectWeight(this, '250g', 275)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">250g (₹275)</button>
                         <button onclick="selectWeight(this, '500g', 550)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">500g (₹550)</button>
                         <button onclick="selectWeight(this, '1kg', 1100)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">1kg (₹1100)</button>
                     </div>
@@ -356,7 +353,7 @@
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Til (Sesame) Laddu" data-weight="250g" data-price="163">
+            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Til (Sesame) Laddu" data-weight="" data-price="">
                 <div class="h-64 rounded-xl overflow-hidden relative mb-4">
                     <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-brand-dark z-10 shadow-sm">
                         <i class="fas fa-heart text-red-500 mr-1"></i> Heart Healthy
@@ -371,7 +368,7 @@
                     <p class="text-sm text-gray-500 mb-4 line-clamp-2">Til laddus, rich in calcium, iron, healthy fats, and antioxidants.</p>
                     
                     <div class="flex gap-2 mb-3 weight-options">
-                        <button onclick="selectWeight(this, '250g', 163)" class="weight-btn flex-1 py-2 text-sm bg-brand-dark text-white rounded-lg transition-all shadow-md">250g (₹163)</button>
+                        <button onclick="selectWeight(this, '250g', 163)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">250g (₹163)</button>
                         <button onclick="selectWeight(this, '500g', 325)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">500g (₹325)</button>
                         <button onclick="selectWeight(this, '1kg', 650)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">1kg (₹650)</button>
                     </div>
@@ -380,7 +377,7 @@
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Chocolate Laddu" data-weight="250g" data-price="150">
+            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Chocolate Laddu" data-weight="" data-price="">
                 <div class="h-64 rounded-xl overflow-hidden relative mb-4">
                     <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-brand-dark z-10 shadow-sm">
                         <i class="fas fa-bread-slice text-yellow-600 mr-1"></i> Gluten Free
@@ -395,7 +392,7 @@
                     <p class="text-sm text-gray-500 mb-4 line-clamp-2">Chocolate laddus, rich in antioxidants, magnesium, and feel-good compounds.</p>
                     
                     <div class="flex gap-2 mb-3 weight-options">
-                        <button onclick="selectWeight(this, '250g', 150)" class="weight-btn flex-1 py-2 text-sm bg-brand-dark text-white rounded-lg transition-all shadow-md">250g (₹150)</button>
+                        <button onclick="selectWeight(this, '250g', 150)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">250g (₹150)</button>
                         <button onclick="selectWeight(this, '500g', 300)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">500g (₹300)</button>
                         <button onclick="selectWeight(this, '1kg', 600)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">1kg (₹600)</button>
                     </div>
@@ -404,7 +401,7 @@
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Coconut Laddu" data-weight="250g" data-price="100">
+            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Coconut Laddu" data-weight="" data-price="">
                 <div class="h-64 rounded-xl overflow-hidden relative mb-4">
                     <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-brand-dark z-10 shadow-sm">
                         <i class="fas fa-tree text-green-600 mr-1"></i> Manganese Rich
@@ -419,7 +416,7 @@
                     <p class="text-sm text-gray-500 mb-4 line-clamp-2">Fresh coconut delight containing essential minerals like Copper.</p>
                     
                     <div class="flex gap-2 mb-3 weight-options">
-                        <button onclick="selectWeight(this, '250g', 100)" class="weight-btn flex-1 py-2 text-sm bg-brand-dark text-white rounded-lg transition-all shadow-md">250g (₹100)</button>
+                        <button onclick="selectWeight(this, '250g', 100)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">250g (₹100)</button>
                         <button onclick="selectWeight(this, '500g', 200)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">500g (₹200)</button>
                         <button onclick="selectWeight(this, '1kg', 400)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">1kg (₹400)</button>
                     </div>
@@ -428,7 +425,7 @@
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Oats + Makhana Laddu" data-weight="250g" data-price="200">
+            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Oats + Makhana Laddu" data-weight="" data-price="">
                 <div class="h-64 rounded-xl overflow-hidden relative mb-4">
                     <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-brand-dark z-10 shadow-sm">
                         <i class="fas fa-feather-alt text-gray-500 mr-1"></i> High Fiber
@@ -443,7 +440,7 @@
                     <p class="text-sm text-gray-500 mb-4 line-clamp-2">The ultimate low-calorie snack. Great for weight management.</p>
                     
                     <div class="flex gap-2 mb-3 weight-options">
-                        <button onclick="selectWeight(this, '250g', 200)" class="weight-btn flex-1 py-2 text-sm bg-brand-dark text-white rounded-lg transition-all shadow-md">250g (₹200)</button>
+                        <button onclick="selectWeight(this, '250g', 200)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">250g (₹200)</button>
                         <button onclick="selectWeight(this, '500g', 400)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">500g (₹400)</button>
                         <button onclick="selectWeight(this, '1kg', 800)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">1kg (₹800)</button>
                     </div>
@@ -452,7 +449,7 @@
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Moringa Laddu" data-weight="250g" data-price="225">
+            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Moringa Laddu" data-weight="" data-price="">
                 <div class="h-64 rounded-xl overflow-hidden relative mb-4">
                     <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-brand-dark z-10 shadow-sm">
                         <i class="fas fa-plus-circle text-green-500 mr-1"></i> Rich in Vitamin C
@@ -467,7 +464,7 @@
                     <p class="text-sm text-gray-500 mb-4 line-clamp-2">Packed with Vitamin C, A, and E. A true immunity powerhouse.</p>
                     
                     <div class="flex gap-2 mb-3 weight-options">
-                        <button onclick="selectWeight(this, '250g', 225)" class="weight-btn flex-1 py-2 text-sm bg-brand-dark text-white rounded-lg transition-all shadow-md">250g (₹225)</button>
+                        <button onclick="selectWeight(this, '250g', 225)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">250g (₹225)</button>
                         <button onclick="selectWeight(this, '500g', 450)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">500g (₹450)</button>
                         <button onclick="selectWeight(this, '1kg', 900)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">1kg (₹900)</button>
                     </div>
@@ -476,7 +473,7 @@
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Aliv (Halim) Laddu" data-weight="250g" data-price="238">
+            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Aliv (Halim) Laddu" data-weight="" data-price="">
                 <div class="h-64 rounded-xl overflow-hidden relative mb-4">
                     <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-brand-dark z-10 shadow-sm">
                         <i class="fas fa-female text-pink-500 mr-1"></i> Women Wellness
@@ -491,7 +488,7 @@
                     <p class="text-sm text-gray-500 mb-4 line-clamp-2">Aliv seed laddus that support strength, recovery, and hormonal balance.</p>
                     
                     <div class="flex gap-2 mb-3 weight-options">
-                        <button onclick="selectWeight(this, '250g', 238)" class="weight-btn flex-1 py-2 text-sm bg-brand-dark text-white rounded-lg transition-all shadow-md">250g (₹238)</button>
+                        <button onclick="selectWeight(this, '250g', 238)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">250g (₹238)</button>
                         <button onclick="selectWeight(this, '500g', 475)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">500g (₹475)</button>
                         <button onclick="selectWeight(this, '1kg', 950)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">1kg (₹950)</button>
                     </div>
@@ -500,7 +497,7 @@
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Javas (Flaxseed) Laddu" data-weight="250g" data-price="175">
+            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Javas (Flaxseed) Laddu" data-weight="" data-price="">
                 <div class="h-64 rounded-xl overflow-hidden relative mb-4">
                     <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-brand-dark z-10 shadow-sm">
                         <i class="fas fa-seedling text-green-600 mr-1"></i> Omega-3 Rich
@@ -515,7 +512,7 @@
                     <p class="text-sm text-gray-500 mb-4 line-clamp-2">Flaxseed laddus rich in Omega-3, fiber, and antioxidants for heart health.</p>
                     
                     <div class="flex gap-2 mb-3 weight-options">
-                        <button onclick="selectWeight(this, '250g', 175)" class="weight-btn flex-1 py-2 text-sm bg-brand-dark text-white rounded-lg transition-all shadow-md">250g (₹175)</button>
+                        <button onclick="selectWeight(this, '250g', 175)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">250g (₹175)</button>
                         <button onclick="selectWeight(this, '500g', 350)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">500g (₹350)</button>
                         <button onclick="selectWeight(this, '1kg', 700)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">1kg (₹700)</button>
                     </div>
@@ -524,7 +521,7 @@
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Dry Fruits Dates Bites" data-weight="250g" data-price="250">
+            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Dry Fruits Dates Bites" data-weight="" data-price="">
                 <div class="h-64 rounded-xl overflow-hidden relative mb-4">
                     <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-brand-dark z-10 shadow-sm">
                         <i class="fas fa-seedling text-green-600 mr-1"></i> Nutrients Rich
@@ -539,7 +536,7 @@
                     <p class="text-sm text-gray-500 mb-4 line-clamp-2">Boost energy, aid digestion, and support heart health with essential nutrients.</p>
                     
                     <div class="flex gap-2 mb-3 weight-options">
-                        <button onclick="selectWeight(this, '250g', 250)" class="weight-btn flex-1 py-2 text-sm bg-brand-dark text-white rounded-lg transition-all shadow-md">250g (₹250)</button>
+                        <button onclick="selectWeight(this, '250g', 250)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">250g (₹250)</button>
                         <button onclick="selectWeight(this, '500g', 500)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">500g (₹500)</button>
                         <button onclick="selectWeight(this, '1kg', 1000)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">1kg (₹1000)</button>
                     </div>
@@ -558,7 +555,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Nachani Chips" data-weight="250g" data-price="138">
+            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Nachani Chips" data-weight="" data-price="">
                 <div class="h-64 rounded-xl overflow-hidden relative mb-4">
                     <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-brand-dark z-10 shadow-sm">
                         <i class="fas fa-leaf text-green-600 mr-1"></i> Calcium Rich
@@ -573,7 +570,7 @@
                     <p class="text-sm text-gray-500 mb-4 line-clamp-2">Crispy Ragi chips seasoned with mild spices. High in calcium and fiber.</p>
                     
                     <div class="flex gap-2 mb-3 weight-options">
-                        <button onclick="selectWeight(this, '250g', 138)" class="weight-btn flex-1 py-2 text-sm bg-brand-dark text-white rounded-lg transition-all shadow-md">250g (₹138)</button>
+                        <button onclick="selectWeight(this, '250g', 138)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">250g (₹138)</button>
                         <button onclick="selectWeight(this, '500g', 275)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">500g (₹275)</button>
                         <button onclick="selectWeight(this, '1kg', 550)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">1kg (₹550)</button>
                     </div>
@@ -582,7 +579,7 @@
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Soya Chips" data-weight="250g" data-price="138">
+            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Soya Chips" data-weight="" data-price="">
                 <div class="h-64 rounded-xl overflow-hidden relative mb-4">
                     <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-brand-dark z-10 shadow-sm">
                         <i class="fas fa-dumbbell text-brand-secondary mr-1"></i> Protein Rich
@@ -597,7 +594,7 @@
                     <p class="text-sm text-gray-500 mb-4 line-clamp-2">Crunchy soya sticks that satisfy your cravings while adding protein to your diet.</p>
                     
                     <div class="flex gap-2 mb-3 weight-options">
-                        <button onclick="selectWeight(this, '250g', 138)" class="weight-btn flex-1 py-2 text-sm bg-brand-dark text-white rounded-lg transition-all shadow-md">250g (₹138)</button>
+                        <button onclick="selectWeight(this, '250g', 138)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">250g (₹138)</button>
                         <button onclick="selectWeight(this, '500g', 275)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">500g (₹275)</button>
                         <button onclick="selectWeight(this, '1kg', 550)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">1kg (₹550)</button>
                     </div>
@@ -606,7 +603,7 @@
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Palak Chips" data-weight="250g" data-price="125">
+            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Palak Chips" data-weight="" data-price="">
                 <div class="h-64 rounded-xl overflow-hidden relative mb-4">
                     <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-brand-dark z-10 shadow-sm">
                         <i class="fas fa-tint text-green-500 mr-1"></i> Iron Boost
@@ -621,7 +618,7 @@
                     <p class="text-sm text-gray-500 mb-4 line-clamp-2">Wholesome Spinach chips baked to perfection. A hit with kids and adults alike.</p>
                     
                     <div class="flex gap-2 mb-3 weight-options">
-                        <button onclick="selectWeight(this, '250g', 125)" class="weight-btn flex-1 py-2 text-sm bg-brand-dark text-white rounded-lg transition-all shadow-md">250g (₹125)</button>
+                        <button onclick="selectWeight(this, '250g', 125)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">250g (₹125)</button>
                         <button onclick="selectWeight(this, '500g', 250)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">500g (₹250)</button>
                         <button onclick="selectWeight(this, '1kg', 500)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">1kg (₹500)</button>
                     </div>
@@ -630,7 +627,7 @@
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Namkin Pare" data-weight="250g" data-price="100">
+            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Namkin Pare" data-weight="" data-price="">
                 <div class="h-64 rounded-xl overflow-hidden relative mb-4">
                     <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-brand-dark z-10 shadow-sm">
                         <i class="fas fa-mug-hot text-amber-700 mr-1"></i> Tea-Time Partner
@@ -645,7 +642,7 @@
                     <p class="text-sm text-gray-500 mb-4 line-clamp-2">Traditional savory bites made with whole wheat flour and cumin seeds.</p>
                     
                     <div class="flex gap-2 mb-3 weight-options">
-                        <button onclick="selectWeight(this, '250g', 100)" class="weight-btn flex-1 py-2 text-sm bg-brand-dark text-white rounded-lg transition-all shadow-md">250g (₹100)</button>
+                        <button onclick="selectWeight(this, '250g', 100)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">250g (₹100)</button>
                         <button onclick="selectWeight(this, '500g', 200)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">500g (₹200)</button>
                         <button onclick="selectWeight(this, '1kg', 400)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">1kg (₹400)</button>
                     </div>
@@ -654,7 +651,7 @@
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Beetroot Chips" data-weight="250g" data-price="125">
+            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Beetroot Chips" data-weight="" data-price="">
                 <div class="h-64 rounded-xl overflow-hidden relative mb-4">
                     <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-brand-dark z-10 shadow-sm">
                         <i class="fas fa-vial text-red-600 mr-1"></i> Antioxidant Rich
@@ -669,7 +666,7 @@
                     <p class="text-sm text-gray-500 mb-4 line-clamp-2">Vibrant and nutrient-dense beetroot crisps. Low in calories, high in taste.</p>
                     
                     <div class="flex gap-2 mb-3 weight-options">
-                        <button onclick="selectWeight(this, '250g', 125)" class="weight-btn flex-1 py-2 text-sm bg-brand-dark text-white rounded-lg transition-all shadow-md">250g (₹125)</button>
+                        <button onclick="selectWeight(this, '250g', 125)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">250g (₹125)</button>
                         <button onclick="selectWeight(this, '500g', 250)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">500g (₹250)</button>
                         <button onclick="selectWeight(this, '1kg', 500)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">1kg (₹500)</button>
                     </div>
@@ -678,7 +675,7 @@
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Diet Chiwda" data-weight="250g" data-price="125">
+            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Diet Chiwda" data-weight="" data-price="">
                 <div class="h-64 rounded-xl overflow-hidden relative mb-4">
                     <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-brand-dark z-10 shadow-sm">
                         <i class="fas fa-weight text-blue-500 mr-1"></i> Weight Management
@@ -693,7 +690,7 @@
                     <p class="text-sm text-gray-500 mb-4 line-clamp-2">Roasted Poha mixed with dry fruits and curry leaves. Zero oil snacking.</p>
                     
                     <div class="flex gap-2 mb-3 weight-options">
-                        <button onclick="selectWeight(this, '250g', 125)" class="weight-btn flex-1 py-2 text-sm bg-brand-dark text-white rounded-lg transition-all shadow-md">250g (₹125)</button>
+                        <button onclick="selectWeight(this, '250g', 125)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">250g (₹125)</button>
                         <button onclick="selectWeight(this, '500g', 250)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">500g (₹250)</button>
                         <button onclick="selectWeight(this, '1kg', 500)" class="weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">1kg (₹500)</button>
                     </div>
@@ -706,115 +703,6 @@
     </div>
 </section>
 
-<script>
-    function selectWeight(btn, weight, price) {
-        // 1. Find the container of the clicked button
-        const container = btn.parentElement;
-        
-        // 2. Reset all buttons in this container to default style
-        const allButtons = container.querySelectorAll('.weight-btn');
-        allButtons.forEach(b => {
-            b.className = 'weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all';
-        });
-
-        // 3. Set the clicked button to active style
-        btn.className = 'weight-btn flex-1 py-2 text-sm bg-brand-dark text-white rounded-lg transition-all shadow-md';
-
-        // 4. Update the parent product card with selected data
-        const card = btn.closest('.product-card');
-        card.setAttribute('data-weight', weight);
-        card.setAttribute('data-price', price);
-    }
-
-    function orderNow(btn) {
-        // 1. Get the product details from the parent card
-        const card = btn.closest('.product-card');
-        const name = card.getAttribute('data-name');
-        const weight = card.getAttribute('data-weight');
-        const price = card.getAttribute('data-price');
-
-        // 2. YOUR WHATSAPP NUMBER HERE (Format: 91XXXXXXXXXX)
-        const phoneNumber = '910000000000'; 
-
-        // 3. Construct the message
-        const message = `Hello, I would like to order: ${name} - Weight: ${weight} - Price: ₹${price}`;
-
-        // 4. Create the WhatsApp URL
-        const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-
-        // 5. Open WhatsApp in a new tab
-        window.open(url, '_blank');
-    }
-</script>
-
-<!-- Add this JavaScript at the end of your body tag -->
-<script>
-// Store selected weight for each product
-let selectedWeights = {};
-
-function selectWeight(button, weight, price) {
-    // Get the product container
-    const productCard = button.closest('.product-card');
-    const productName = productCard.querySelector('h3').textContent.trim();
-    
-    // Remove active class from all weight buttons in this product
-    const weightBtns = productCard.querySelectorAll('.weight-btn');
-    weightBtns.forEach(btn => {
-        btn.classList.remove('bg-brand-dark', 'text-white');
-        btn.classList.add('border-brand-dark/30');
-    });
-    
-    // Add active class to selected button
-    button.classList.remove('border-brand-dark/30');
-    button.classList.add('bg-brand-dark', 'text-white');
-    
-    // Store the selected weight and price
-    selectedWeights[productName] = { weight, price };
-}
-
-function orderNow(productName) {
-    const phoneNumber = '918788514695';
-    const selected = selectedWeights[productName];
-    
-    let message = '';
-    if (selected) {
-        message = `I would like to order ${productName} - ${selected.weight} (₹${selected.price})`;
-    } else {
-        // If no weight selected, prompt to select one
-        alert('Please select a weight first!');
-        return;
-    }
-    
-    // Encode the message for URL
-    const encodedMessage = encodeURIComponent(message);
-    
-    // Create WhatsApp URL
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-    
-    // Open WhatsApp in new tab
-    window.open(whatsappUrl, '_blank');
-}
-</script>
-
-<style>
-/* Add these styles to your existing CSS */
-.weight-btn.active {
-    background-color: #1e2a3a; /* brand-dark color */
-    color: white;
-    border-color: #1e2a3a;
-}
-
-.order-btn {
-    transition: all 0.3s ease;
-}
-
-.order-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px -10px rgba(0,0,0,0.2);
-}
-</style>
-
-    <!-- Testimonials / Customer Love -->
     <section id="reviews" class="py-24 bg-brand-sage/20 relative overflow-hidden">
         <div class="absolute top-0 right-0 w-64 h-64 bg-white/40 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
         <div class="absolute bottom-0 left-0 w-64 h-64 bg-brand-primary/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
@@ -825,10 +713,8 @@ function orderNow(productName) {
                 <h2 class="text-4xl font-bold text-brand-dark">Customer Love ❤️</h2>
             </div>
 
-            <!-- Scrollable container for reviews -->
             <div class="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory hide-scroll">
                 
-                <!-- Review 1 - Shilpa Birhade (New) -->
                 <div class="min-w-[300px] md:min-w-[350px] bg-white p-8 rounded-3xl shadow-sm border border-gray-100 flex-shrink-0 snap-center relative">
                     <i class="fas fa-quote-right absolute top-8 right-8 text-4xl text-brand-terracotta/20"></i>
                     <div class="flex items-center gap-4 mb-6">
@@ -841,7 +727,6 @@ function orderNow(productName) {
                     <p class="text-gray-600 italic">"Hello Shubhangi Vahini,<br> all the laddus are absolutely delicious —<br>  so tasty and full of flavor! <br>My husband loved them so much. <br>The dink laddu, udid dal laddu, and dry fruit laddu, made with pure ghee and jaggery, are truly delightful. <br>Thank you so much!</p>
                 </div>
                 
-                <!-- Review 2 -->
                 <div class="min-w-[300px] md:min-w-[350px] bg-white p-8 rounded-3xl shadow-sm border border-gray-100 flex-shrink-0 snap-center relative">
                     <i class="fas fa-quote-right absolute top-8 right-8 text-4xl text-brand-terracotta/20"></i>
                     <div class="flex items-center gap-4 mb-6">
@@ -854,7 +739,6 @@ function orderNow(productName) {
                     <p class="text-gray-600 italic">"The laddus were absolutely delicious! 😋<br> Everyone at home just loved it— perfectly sweet, soft, and full of flavor.<br> Each bite felt like a treat made with love."</p>
                 </div>
 
-                <!-- Review 3 -->
                 <div class="min-w-[300px] md:min-w-[350px] bg-white p-8 rounded-3xl shadow-sm border border-gray-100 flex-shrink-0 snap-center relative">
                     <i class="fas fa-quote-right absolute top-8 right-8 text-4xl text-brand-terracotta/20"></i>
                     <div class="flex items-center gap-4 mb-6">
@@ -867,7 +751,6 @@ function orderNow(productName) {
                     <p class="text-gray-600 italic">"I tasted your Urad Gram laddu and Ragi laddu.<br> Both were tasted yummy.<br> They gave us a rich taste of Pure Desi Ghee, crunch. <br>Also found that ragi/urad daal were well roasted so laddus were not sticky..."</p>
                 </div>
 
-                <!-- Review 4 -->
                 <div class="min-w-[300px] md:min-w-[350px] bg-white p-8 rounded-3xl shadow-sm border border-gray-100 flex-shrink-0 snap-center relative">
                     <i class="fas fa-quote-right absolute top-8 right-8 text-4xl text-brand-terracotta/20"></i>
                     <div class="flex items-center gap-4 mb-6">
@@ -880,7 +763,6 @@ function orderNow(productName) {
                     <p class="text-gray-600 italic">"Dink Laddu and Dryfruits Laddu are tasty 😋"</p>
                 </div>
 
-                <!-- Review 5 -->
                 <div class="min-w-[300px] md:min-w-[350px] bg-white p-8 rounded-3xl shadow-sm border border-gray-100 flex-shrink-0 snap-center relative">
                     <i class="fas fa-quote-right absolute top-8 right-8 text-4xl text-brand-terracotta/20"></i>
                     <div class="flex items-center gap-4 mb-6">
@@ -893,7 +775,6 @@ function orderNow(productName) {
                     <p class="text-gray-600 italic">"I recently tried the Methi and Nachani laddus... <br>I'm officially hooked! Support local and eat healthy! 🏠✨ <br>Just like Grandma used to make! ❤️"</p>
                 </div>
 
-                <!-- Review 6 -->
                 <div class="min-w-[300px] md:min-w-[350px] bg-white p-8 rounded-3xl shadow-sm border border-gray-100 flex-shrink-0 snap-center relative">
                     <i class="fas fa-quote-right absolute top-8 right-8 text-4xl text-brand-terracotta/20"></i>
                     <div class="flex items-center gap-4 mb-6">
@@ -907,7 +788,6 @@ function orderNow(productName) {
                 </div>
             </div>
             
-            <!-- Optional: Scroll hint indicator -->
             <div class="flex justify-center gap-2 mt-4 md:hidden">
                 <span class="text-xs text-gray-500">← Swipe to see more reviews →</span>
             </div>
@@ -958,7 +838,6 @@ function orderNow(productName) {
             </div>
         </div>
     </section>
-    <!-- Contact & Footer -->
     <section id="contact" class="py-20 bg-brand-cream relative">
         <div class="container mx-auto px-6 max-w-5xl">
             <div class="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-2xl flex flex-col md:flex-row gap-12 border border-gray-100">
@@ -1026,11 +905,52 @@ function orderNow(productName) {
             </div>
         </div>
     </section>
+    
+    <script>
+        function selectWeight(btn, weight, price) {
+            // 1. Find the container of the clicked button
+            const container = btn.parentElement;
+            
+            // 2. Reset all buttons in this container to default style (unselected)
+            const allButtons = container.querySelectorAll('.weight-btn');
+            allButtons.forEach(b => {
+                b.className = 'weight-btn flex-1 py-2 text-sm border border-brand-dark/30 text-gray-700 rounded-lg hover:bg-gray-100 transition-all';
+            });
+
+            // 3. Set the clicked button to active style (Green/Dark Brand Color)
+            btn.className = 'weight-btn flex-1 py-2 text-sm bg-brand-dark text-white rounded-lg transition-all shadow-md';
+
+            // 4. Update the parent product card with selected data
+            const card = btn.closest('.product-card');
+            card.setAttribute('data-weight', weight);
+            card.setAttribute('data-price', price);
+        }
+
+        function orderNow(btn) {
+            // 1. Get the product details from the parent card
+            const card = btn.closest('.product-card');
+            const name = card.getAttribute('data-name');
+            const weight = card.getAttribute('data-weight');
+            const price = card.getAttribute('data-price');
+
+            // 2. CHECK: If no weight selected, alert user and stop
+            if (!weight || !price) {
+                alert("Please select a weight for " + name + " first!");
+                return;
+            }
+
+            // 3. YOUR WHATSAPP NUMBER
+            const phoneNumber = '918788514695'; 
+
+            // 4. Construct the message
+            const message = `Hello, I would like to order: ${name}\nWeight: ${weight}\nPrice: ₹${price}`;
+
+            // 5. Create the WhatsApp URL
+            const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+            // 6. Open WhatsApp in a new tab
+            window.open(url, '_blank');
+        }
+    </script>
 </body>
 </html>
-
-
-
-
-
-
