@@ -931,6 +931,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             </div>
             
             <div class="p-6 border-t bg-white shadow-[0_-10px_20px_rgba(0,0,0,0.05)]">
+                
+                <div class="mb-4 space-y-3">
+                    <div>
+                        <input type="text" id="customer-name" placeholder="Full Name" class="w-full text-sm bg-gray-50 border border-gray-200 rounded-lg px-3 py-2.5 focus:outline-none focus:border-green-500 focus:bg-white transition-all">
+                    </div>
+                    <div>
+                        <textarea id="customer-address" placeholder="Delivery Address (with pin code)" rows="2" class="w-full text-sm bg-gray-50 border border-gray-200 rounded-lg px-3 py-2.5 focus:outline-none focus:border-green-500 focus:bg-white transition-all resize-none"></textarea>
+                    </div>
+                </div>
+
                 <div class="flex justify-between items-center mb-6">
                     <span class="text-lg font-bold text-gray-600">Total Bill:</span>
                     <span id="cart-total" class="text-3xl font-bold text-green-600">₹0</span>
@@ -1070,6 +1080,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 return;
             }
 
+            // NEW: Capture and validate customer details
+            const customerName = document.getElementById('customer-name').value.trim();
+            const customerAddress = document.getElementById('customer-address').value.trim();
+
+            if (!customerName) {
+                alert("Please enter your Full Name for delivery.");
+                document.getElementById('customer-name').focus();
+                return;
+            }
+
+            if (!customerAddress) {
+                alert("Please enter your complete Delivery Address.");
+                document.getElementById('customer-address').focus();
+                return;
+            }
+
             let message = "Hello Healthy Bites! 👋\nI would like to place an order:\n\n";
             let total = 0;
 
@@ -1079,7 +1105,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 total += itemTotal;
             });
 
-            message += `━━━━━━━━━━━━━━\n*Total Bill: ₹${total}*\n━━━━━━━━━━━━━━\n\nPlease let me know how to proceed with payment.`;
+            message += `━━━━━━━━━━━━━━\n*Total Bill: ₹${total}*\n━━━━━━━━━━━━━━\n\n`;
+            
+            // NEW: Append Customer Details to the WhatsApp Message
+            message += `📍 *Delivery Details:*\n`;
+            message += `*Name:* ${customerName}\n`;
+            message += `*Address:* ${customerAddress}\n\n`;
+            
+            message += `Please let me know how to proceed with payment.`;
 
             const phoneNumber = '918788514695'; 
             const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
