@@ -28,7 +28,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             content: "";
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('pattern.jpeg');
+            background-image: url('patter.jpeg');
             background-repeat: repeat;
             background-size: auto;
             opacity: 0.25;
@@ -1339,10 +1339,29 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     </div>
                 </div>
 
-                <div class="flex justify-between items-center mb-6">
-                    <span class="text-lg font-bold text-gray-600">Total Bill:</span>
-                    <span id="cart-total" class="text-3xl font-bold text-green-600">₹0</span>
+                <div class="mb-4 border-t border-gray-100 pt-4">
+                    <div class="flex gap-2">
+                        <input type="text" id="coupon-code" placeholder="Enter Coupon Code" class="w-full text-sm bg-gray-50 border border-gray-200 rounded-lg px-3 py-2.5 focus:outline-none focus:border-green-500 focus:bg-white transition-all uppercase">
+                        <button onclick="applyCoupon()" class="bg-gray-800 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-gray-700 transition-all">Apply</button>
+                    </div>
+                    <p id="coupon-message" class="text-xs font-bold mt-2 hidden"></p>
                 </div>
+
+                <div class="space-y-2 mb-6">
+                    <div class="flex justify-between items-center text-gray-500">
+                        <span class="text-sm font-bold">Subtotal:</span>
+                        <span id="cart-subtotal" class="font-bold">₹0</span>
+                    </div>
+                    <div id="discount-row" class="flex justify-between items-center text-green-600 hidden">
+                        <span class="text-sm font-bold">Discount (10% OFF):</span>
+                        <span id="cart-discount" class="font-bold">-₹0</span>
+                    </div>
+                    <div class="flex justify-between items-center pt-2 border-t border-gray-100">
+                        <span class="text-lg font-bold text-gray-800">Total Bill:</span>
+                        <span id="cart-total" class="text-3xl font-bold text-green-600">₹0</span>
+                    </div>
+                </div>
+
                 <button onclick="checkoutWhatsApp()" class="w-full bg-green-600 text-white font-bold py-4 rounded-xl shadow-lg hover:bg-green-700 transition-all flex justify-center items-center gap-2 transform active:scale-95">
                     Order via WhatsApp <i class="fab fa-whatsapp text-xl"></i>
                 </button>
@@ -1351,10 +1370,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
 
     <script>
-        // Store our cart items
         let cart = [];
+        let isCouponApplied = false;
 
-        // NEW: E-Commerce Quantity Increment/Decrement functions
+        // E-Commerce Quantity Increment/Decrement functions
         function increaseQty(btn) {
             const input = btn.previousElementSibling;
             let val = parseInt(input.value);
@@ -1372,7 +1391,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             }
         }
 
-        // NEW: Update Display Price when Weight Dropdown Changes
+        // Update Display Price when Weight Dropdown Changes
         function updateDisplayPrice(selectElement) {
             const card = selectElement.closest('.product-card');
             const priceDisplay = card.querySelector('.display-price');
@@ -1380,36 +1399,30 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         }
 
         function addToCart(btn) {
-            // Find parent product card
             const card = btn.closest('.product-card');
             const name = card.getAttribute('data-name');
             
-            // Get dropdown and quantity input fields
             const select = card.querySelector('.weight-select');
             const qtyInput = card.querySelector('.quantity-input');
             
-            // Extract the data from those fields
             const selectedOption = select.options[select.selectedIndex];
             const weight = selectedOption.getAttribute('data-weight');
             const price = parseInt(selectedOption.value);
             const quantity = parseInt(qtyInput.value);
 
-            // Validation
             if (isNaN(quantity) || quantity < 1) {
                 alert("Please enter a valid quantity greater than 0!");
                 return;
             }
 
-            // Check if item with exact same name and weight already exists in cart
             const existingItem = cart.find(item => item.name === name && item.weight === weight);
             
             if (existingItem) {
-                existingItem.quantity += quantity; // Add the typed quantity
+                existingItem.quantity += quantity;
             } else {
                 cart.push({ name, weight, price, quantity: quantity });
             }
 
-            // Provide visual feedback
             const originalText = btn.innerHTML;
             btn.innerHTML = 'Added! <i class="fas fa-check"></i>';
             btn.classList.replace('bg-green-600', 'bg-gray-800');
@@ -1419,9 +1432,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 btn.classList.replace('bg-gray-800', 'bg-green-600');
             }, 1000);
 
-            // Reset quantity back to 1 for convenience
             qtyInput.value = 1;
-
             updateCartUI();
         }
 
@@ -1431,31 +1442,54 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             
             if (modal.classList.contains('hidden')) {
                 modal.classList.remove('hidden');
-                // slight delay to allow display:block to apply before animating transform
                 setTimeout(() => sidebar.classList.remove('translate-x-full'), 10);
             } else {
                 sidebar.classList.add('translate-x-full');
-                // wait for animation to finish before hiding
                 setTimeout(() => modal.classList.add('hidden'), 300);
             }
+        }
+
+        // Apply Coupon Function
+        function applyCoupon() {
+            const codeInput = document.getElementById('coupon-code');
+            const message = document.getElementById('coupon-message');
+            const code = codeInput.value.trim().toUpperCase();
+
+            if (code === 'BEHEALTHY10') {
+                isCouponApplied = true;
+                message.textContent = 'Coupon applied successfully! 10% OFF';
+                message.className = 'text-xs font-bold mt-2 text-green-600 block';
+            } else {
+                isCouponApplied = false;
+                message.textContent = 'Invalid or expired coupon code.';
+                message.className = 'text-xs font-bold mt-2 text-red-500 block';
+            }
+            updateCartUI();
         }
 
         function updateCartUI() {
             const cartItemsContainer = document.getElementById('cart-items');
             const cartCount = document.getElementById('cart-count');
-            const cartTotal = document.getElementById('cart-total');
+            const cartSubtotalEl = document.getElementById('cart-subtotal');
+            const cartDiscountEl = document.getElementById('cart-discount');
+            const cartTotalEl = document.getElementById('cart-total');
+            const discountRow = document.getElementById('discount-row');
 
             cartItemsContainer.innerHTML = '';
-            let total = 0;
+            let subtotal = 0;
             let count = 0;
 
             if (cart.length === 0) {
                 cartItemsContainer.innerHTML = '<p class="text-gray-500 text-center mt-10">Your cart is empty.</p>';
+                // Reset coupon if cart is empty
+                isCouponApplied = false;
+                document.getElementById('coupon-code').value = '';
+                document.getElementById('coupon-message').classList.add('hidden');
             } else {
                 cart.forEach((item, index) => {
                     const itemTotal = item.price * item.quantity;
-                    total += itemTotal;
-                    count += item.quantity; // Sum the actual quantites for cart badge
+                    subtotal += itemTotal;
+                    count += item.quantity;
                     
                     cartItemsContainer.innerHTML += `
                         <div class="flex justify-between items-center bg-white p-4 rounded-xl shadow-sm border border-gray-100 mb-3">
@@ -1477,8 +1511,23 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 });
             }
 
+            // Calculate final totals
+            let finalTotal = subtotal;
+            let discountAmount = 0;
+
+            if (isCouponApplied && subtotal > 0) {
+                discountAmount = subtotal * 0.10;
+                finalTotal = subtotal - discountAmount;
+                discountRow.classList.remove('hidden');
+            } else {
+                discountRow.classList.add('hidden');
+            }
+
+            // Update UI elements
             cartCount.innerText = count;
-            cartTotal.innerText = '₹' + total;
+            cartSubtotalEl.innerText = '₹' + subtotal;
+            cartDiscountEl.innerText = '-₹' + discountAmount.toFixed(2);
+            cartTotalEl.innerText = '₹' + Math.round(finalTotal);
             
             // Pop animation on cart icon
             const cartIconBtn = document.querySelector('button[onclick="toggleCart()"]');
@@ -1497,7 +1546,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 return;
             }
 
-            // Capture and validate customer details
             const customerName = document.getElementById('customer-name').value.trim();
             const customerAddress = document.getElementById('customer-address').value.trim();
 
@@ -1514,17 +1562,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             }
 
             let message = "Hello Healthy Bites! 👋\nI would like to place an order:\n\n";
-            let total = 0;
+            let subtotal = 0;
 
             cart.forEach((item, index) => {
                 const itemTotal = item.price * item.quantity;
                 message += `▪️ *${item.name}*\n  ${item.weight} x ${item.quantity} = ₹${itemTotal}\n\n`;
-                total += itemTotal;
+                subtotal += itemTotal;
             });
 
-            message += `━━━━━━━━━━━━━━\n*Total Bill: ₹${total}*\n━━━━━━━━━━━━━━\n\n`;
+            message += `━━━━━━━━━━━━━━\n`;
+            message += `*Subtotal: ₹${subtotal}*\n`;
+
+            let finalTotal = subtotal;
+            if (isCouponApplied) {
+                let discountAmount = subtotal * 0.10;
+                finalTotal = subtotal - discountAmount;
+                message += `*Discount (BEHEALTHY10): -₹${discountAmount.toFixed(2)}*\n`;
+            }
+
+            message += `*Final Total: ₹${Math.round(finalTotal)}*\n`;
+            message += `━━━━━━━━━━━━━━\n\n`;
             
-            // Append Customer Details to the WhatsApp Message
             message += `📍 *Delivery Details:*\n`;
             message += `*Name:* ${customerName}\n`;
             message += `*Address:* ${customerAddress}\n\n`;
@@ -1539,4 +1597,3 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </script>
 </body>
 </html>
-
