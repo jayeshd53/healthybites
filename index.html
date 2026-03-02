@@ -75,6 +75,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         .animate-float {
             animation: float 6s ease-in-out infinite;
         }
+        
+        /* Infinite Marquee Animations */
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-100%); }
+        }
+        .animate-marquee {
+            animation: marquee 35s linear infinite;
+        }
+        .marquee-container:hover .animate-marquee {
+            animation-play-state: paused;
+        }
+
         /* hide scrollbar for reviews */
         .hide-scroll::-webkit-scrollbar {
             display: none;
@@ -155,8 +168,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                             <i class="fas fa-gift"></i>
                         </div>
                         <div>
-                            <p class="text-sm text-green-800">Get <strong>10% OFF</strong> on your entire order!</p>
-                            <p class="text-sm text-green-800">Use code: <strong class="bg-white px-2 py-0.5 rounded shadow-sm border border-green-200 font-black tracking-wider ml-1 select-all">BEHEALTHY10</strong></p>
+                            <p class="text-sm text-green-800">Get <strong>10% OFF</strong> on all Laddus!</p>
+                            <p class="text-sm text-green-800">Use code: <strong class="bg-white px-2 py-0.5 rounded shadow-sm border border-green-200 font-black tracking-wider ml-1 select-all">LADDU10</strong></p>
                         </div>
                     </div>
                     
@@ -1078,84 +1091,163 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <h2 class="text-4xl font-bold text-brand-dark">Customer Love ❤️</h2>
             </div>
 
-            <div class="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory hide-scroll">
+            <div class="overflow-hidden flex w-full marquee-container group relative">
                 
-                <div class="min-w-[300px] md:min-w-[350px] bg-white p-8 rounded-3xl shadow-sm border border-gray-100 flex-shrink-0 snap-center relative">
-                    <i class="fas fa-quote-right absolute top-8 right-8 text-4xl text-brand-terracotta/20"></i>
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="w-12 h-12 bg-brand-terracotta rounded-full flex items-center justify-center text-white font-bold text-xl">SB</div>
-                        <div>
-                            <h4 class="font-bold text-brand-dark">Shilpa Birhade</h4>
-                            <p class="text-xs text-gray-500">Mumbai</p>
+                <div class="absolute top-0 left-0 h-full w-12 bg-gradient-to-r from-[#F9F5F0] to-transparent z-10"></div>
+                <div class="absolute top-0 right-0 h-full w-12 bg-gradient-to-l from-[#F9F5F0] to-transparent z-10"></div>
+
+                <div class="animate-marquee flex gap-6 min-w-max pr-6">
+                    
+                    <div class="w-[300px] md:w-[350px] bg-white p-8 rounded-3xl shadow-sm border border-gray-100 flex-shrink-0 relative">
+                        <i class="fas fa-quote-right absolute top-8 right-8 text-4xl text-brand-terracotta/20 text-orange-200"></i>
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-12 h-12 bg-orange-400 rounded-full flex items-center justify-center text-white font-bold text-xl">SB</div>
+                            <div>
+                                <h4 class="font-bold text-brand-dark">Shilpa Birhade</h4>
+                                <p class="text-xs text-gray-500">Mumbai</p>
+                            </div>
                         </div>
+                        <p class="text-gray-600 italic">"Hello Shubhangi Vahini,<br> all the laddus are absolutely delicious —<br>  so tasty and full of flavor! <br>My husband loved them so much. <br>The dink laddu, udid dal laddu, and dry fruit laddu, <br>made with pure ghee and jaggery, are truly delightful. <br>Thank you so much!</p>
                     </div>
-                    <p class="text-gray-600 italic">"Hello Shubhangi Vahini,<br> all the laddus are absolutely delicious —<br>  so tasty and full of flavor! <br>My husband loved them so much. <br>The dink laddu, udid dal laddu, and dry fruit laddu, <br>made with pure ghee and jaggery, are truly delightful. <br>Thank you so much!</p>
-                </div>
-                
-                <div class="min-w-[300px] md:min-w-[350px] bg-white p-8 rounded-3xl shadow-sm border border-gray-100 flex-shrink-0 snap-center relative">
-                    <i class="fas fa-quote-right absolute top-8 right-8 text-4xl text-brand-terracotta/20"></i>
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="w-12 h-12 bg-brand-terracotta rounded-full flex items-center justify-center text-white font-bold text-xl">P</div>
-                        <div>
-                            <h4 class="font-bold text-brand-dark">Priyanka Awasare</h4>
-                            <p class="text-xs text-gray-500">Pune</p>
+                    
+                    <div class="w-[300px] md:w-[350px] bg-white p-8 rounded-3xl shadow-sm border border-gray-100 flex-shrink-0 relative">
+                        <i class="fas fa-quote-right absolute top-8 right-8 text-4xl text-brand-terracotta/20 text-orange-200"></i>
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-xl">P</div>
+                            <div>
+                                <h4 class="font-bold text-brand-dark">Priyanka Awasare</h4>
+                                <p class="text-xs text-gray-500">Pune</p>
+                            </div>
                         </div>
+                        <p class="text-gray-600 italic">"The laddus were absolutely delicious! 😋<br> Everyone at home just loved it— perfectly sweet, soft, and full of flavor.<br> Each bite felt like a treat made with love."</p>
                     </div>
-                    <p class="text-gray-600 italic">"The laddus were absolutely delicious! 😋<br> Everyone at home just loved it— perfectly sweet, soft, and full of flavor.<br> Each bite felt like a treat made with love."</p>
+
+                    <div class="w-[300px] md:w-[350px] bg-white p-8 rounded-3xl shadow-sm border border-gray-100 flex-shrink-0 relative">
+                        <i class="fas fa-quote-right absolute top-8 right-8 text-4xl text-brand-terracotta/20 text-orange-200"></i>
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-12 h-12 bg-blue-400 rounded-full flex items-center justify-center text-white font-bold text-xl">N</div>
+                            <div>
+                                <h4 class="font-bold text-brand-dark">Nilima Kulkarni</h4>
+                                <p class="text-xs text-gray-500">Sangali</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 italic">"I tasted your Urad Gram laddu and Ragi laddu.<br> Both were tasted yummy.<br> They gave us a rich taste of Pure Desi Ghee, crunch. <br>Also found that ragi/urad daal were well roasted so laddus were not sticky..."</p>
+                    </div>
+
+                    <div class="w-[300px] md:w-[350px] bg-white p-8 rounded-3xl shadow-sm border border-gray-100 flex-shrink-0 relative">
+                        <i class="fas fa-quote-right absolute top-8 right-8 text-4xl text-brand-terracotta/20 text-orange-200"></i>
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center text-white font-bold text-xl">S</div>
+                            <div>
+                                <h4 class="font-bold text-brand-dark">Sainath Meshram</h4>
+                                <p class="text-xs text-gray-500">Chandrapur</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 italic">"Dink Laddu and Dryfruits Laddu are tasty 😋"</p>
+                    </div>
+
+                    <div class="w-[300px] md:w-[350px] bg-white p-8 rounded-3xl shadow-sm border border-gray-100 flex-shrink-0 relative">
+                        <i class="fas fa-quote-right absolute top-8 right-8 text-4xl text-brand-terracotta/20 text-orange-200"></i>
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold text-xl">D</div>
+                            <div>
+                                <h4 class="font-bold text-brand-dark">Devyani Waghmare</h4>
+                                <p class="text-xs text-gray-500">Satara</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 italic">"I recently tried the Methi and Nachani laddus... <br>I'm officially hooked! Support local and eat healthy! 🏠✨ <br>Just like Grandma used to make! ❤️"</p>
+                    </div>
+
+                    <div class="w-[300px] md:w-[350px] bg-white p-8 rounded-3xl shadow-sm border border-gray-100 flex-shrink-0 relative">
+                        <i class="fas fa-quote-right absolute top-8 right-8 text-4xl text-brand-terracotta/20 text-orange-200"></i>
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-12 h-12 bg-pink-400 rounded-full flex items-center justify-center text-white font-bold text-xl">H</div>
+                            <div>
+                                <h4 class="font-bold text-brand-dark">Hema Gomati</h4>
+                                <p class="text-xs text-gray-500">Pune</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 italic">"The perfect guilt-free treat! <br>All the variants are incredibly delicious, perfectly sweet, <br>and you can tell they're made with high-quality ingredients. <br>Finally, a snack that tastes like home."</p>
+                    </div>
                 </div>
 
-                <div class="min-w-[300px] md:min-w-[350px] bg-white p-8 rounded-3xl shadow-sm border border-gray-100 flex-shrink-0 snap-center relative">
-                    <i class="fas fa-quote-right absolute top-8 right-8 text-4xl text-brand-terracotta/20"></i>
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="w-12 h-12 bg-brand-secondary rounded-full flex items-center justify-center text-white font-bold text-xl">N</div>
-                        <div>
-                            <h4 class="font-bold text-brand-dark">Nilima Kulkarni</h4>
-                            <p class="text-xs text-gray-500">Sangali</p>
+                <div class="animate-marquee flex gap-6 min-w-max pr-6" aria-hidden="true">
+                    
+                    <div class="w-[300px] md:w-[350px] bg-white p-8 rounded-3xl shadow-sm border border-gray-100 flex-shrink-0 relative">
+                        <i class="fas fa-quote-right absolute top-8 right-8 text-4xl text-brand-terracotta/20 text-orange-200"></i>
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-12 h-12 bg-orange-400 rounded-full flex items-center justify-center text-white font-bold text-xl">SB</div>
+                            <div>
+                                <h4 class="font-bold text-brand-dark">Shilpa Birhade</h4>
+                                <p class="text-xs text-gray-500">Mumbai</p>
+                            </div>
                         </div>
+                        <p class="text-gray-600 italic">"Hello Shubhangi Vahini,<br> all the laddus are absolutely delicious —<br>  so tasty and full of flavor! <br>My husband loved them so much. <br>The dink laddu, udid dal laddu, and dry fruit laddu, <br>made with pure ghee and jaggery, are truly delightful. <br>Thank you so much!</p>
                     </div>
-                    <p class="text-gray-600 italic">"I tasted your Urad Gram laddu and Ragi laddu.<br> Both were tasted yummy.<br> They gave us a rich taste of Pure Desi Ghee, crunch. <br>Also found that ragi/urad daal were well roasted so laddus were not sticky..."</p>
+                    
+                    <div class="w-[300px] md:w-[350px] bg-white p-8 rounded-3xl shadow-sm border border-gray-100 flex-shrink-0 relative">
+                        <i class="fas fa-quote-right absolute top-8 right-8 text-4xl text-brand-terracotta/20 text-orange-200"></i>
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-xl">P</div>
+                            <div>
+                                <h4 class="font-bold text-brand-dark">Priyanka Awasare</h4>
+                                <p class="text-xs text-gray-500">Pune</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 italic">"The laddus were absolutely delicious! 😋<br> Everyone at home just loved it— perfectly sweet, soft, and full of flavor.<br> Each bite felt like a treat made with love."</p>
+                    </div>
+
+                    <div class="w-[300px] md:w-[350px] bg-white p-8 rounded-3xl shadow-sm border border-gray-100 flex-shrink-0 relative">
+                        <i class="fas fa-quote-right absolute top-8 right-8 text-4xl text-brand-terracotta/20 text-orange-200"></i>
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-12 h-12 bg-blue-400 rounded-full flex items-center justify-center text-white font-bold text-xl">N</div>
+                            <div>
+                                <h4 class="font-bold text-brand-dark">Nilima Kulkarni</h4>
+                                <p class="text-xs text-gray-500">Sangali</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 italic">"I tasted your Urad Gram laddu and Ragi laddu.<br> Both were tasted yummy.<br> They gave us a rich taste of Pure Desi Ghee, crunch. <br>Also found that ragi/urad daal were well roasted so laddus were not sticky..."</p>
+                    </div>
+
+                    <div class="w-[300px] md:w-[350px] bg-white p-8 rounded-3xl shadow-sm border border-gray-100 flex-shrink-0 relative">
+                        <i class="fas fa-quote-right absolute top-8 right-8 text-4xl text-brand-terracotta/20 text-orange-200"></i>
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center text-white font-bold text-xl">S</div>
+                            <div>
+                                <h4 class="font-bold text-brand-dark">Sainath Meshram</h4>
+                                <p class="text-xs text-gray-500">Chandrapur</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 italic">"Dink Laddu and Dryfruits Laddu are tasty 😋"</p>
+                    </div>
+
+                    <div class="w-[300px] md:w-[350px] bg-white p-8 rounded-3xl shadow-sm border border-gray-100 flex-shrink-0 relative">
+                        <i class="fas fa-quote-right absolute top-8 right-8 text-4xl text-brand-terracotta/20 text-orange-200"></i>
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold text-xl">D</div>
+                            <div>
+                                <h4 class="font-bold text-brand-dark">Devyani Waghmare</h4>
+                                <p class="text-xs text-gray-500">Satara</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 italic">"I recently tried the Methi and Nachani laddus... <br>I'm officially hooked! Support local and eat healthy! 🏠✨ <br>Just like Grandma used to make! ❤️"</p>
+                    </div>
+
+                    <div class="w-[300px] md:w-[350px] bg-white p-8 rounded-3xl shadow-sm border border-gray-100 flex-shrink-0 relative">
+                        <i class="fas fa-quote-right absolute top-8 right-8 text-4xl text-brand-terracotta/20 text-orange-200"></i>
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-12 h-12 bg-pink-400 rounded-full flex items-center justify-center text-white font-bold text-xl">H</div>
+                            <div>
+                                <h4 class="font-bold text-brand-dark">Hema Gomati</h4>
+                                <p class="text-xs text-gray-500">Pune</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 italic">"The perfect guilt-free treat! <br>All the variants are incredibly delicious, perfectly sweet, <br>and you can tell they're made with high-quality ingredients. <br>Finally, a snack that tastes like home."</p>
+                    </div>
                 </div>
 
-                <div class="min-w-[300px] md:min-w-[350px] bg-white p-8 rounded-3xl shadow-sm border border-gray-100 flex-shrink-0 snap-center relative">
-                    <i class="fas fa-quote-right absolute top-8 right-8 text-4xl text-brand-terracotta/20"></i>
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="w-12 h-12 bg-brand-primary rounded-full flex items-center justify-center text-white font-bold text-xl">S</div>
-                        <div>
-                            <h4 class="font-bold text-brand-dark">Sainath Meshram</h4>
-                            <p class="text-xs text-gray-500">Chandrapur</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 italic">"Dink Laddu and Dryfruits Laddu are tasty 😋"</p>
-                </div>
-
-                <div class="min-w-[300px] md:min-w-[350px] bg-white p-8 rounded-3xl shadow-sm border border-gray-100 flex-shrink-0 snap-center relative">
-                    <i class="fas fa-quote-right absolute top-8 right-8 text-4xl text-brand-terracotta/20"></i>
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="w-12 h-12 bg-brand-dark rounded-full flex items-center justify-center text-white font-bold text-xl">D</div>
-                        <div>
-                            <h4 class="font-bold text-brand-dark">Devyani Waghmare</h4>
-                            <p class="text-xs text-gray-500">Satara</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 italic">"I recently tried the Methi and Nachani laddus... <br>I'm officially hooked! Support local and eat healthy! 🏠✨ <br>Just like Grandma used to make! ❤️"</p>
-                </div>
-
-                <div class="min-w-[300px] md:min-w-[350px] bg-white p-8 rounded-3xl shadow-sm border border-gray-100 flex-shrink-0 snap-center relative">
-                    <i class="fas fa-quote-right absolute top-8 right-8 text-4xl text-brand-terracotta/20"></i>
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="w-12 h-12 bg-brand-terracotta rounded-full flex items-center justify-center text-white font-bold text-xl">H</div>
-                        <div>
-                            <h4 class="font-bold text-brand-dark">Hema Gomati</h4>
-                            <p class="text-xs text-gray-500">Pune</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 italic">"The perfect guilt-free treat! <br>All the variants are incredibly delicious, perfectly sweet, <br>and you can tell they're made with high-quality ingredients. <br>Finally, a snack that tastes like home."</p>
-                </div>
             </div>
             
-            <div class="flex justify-center gap-2 mt-4 md:hidden">
-                <span class="text-xs text-gray-500">← Swipe to see more reviews →</span>
-            </div>
         </div>
     </section>
 
@@ -1352,8 +1444,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <div class="mb-4 border-t border-gray-100 pt-4">
                     <div class="flex justify-between items-center mb-2">
                         <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider">Promo Code</label>
-                        <button onclick="document.getElementById('coupon-code').value='BEHEALTHY10'; applyCoupon();" class="text-[11px] bg-green-50 hover:bg-green-100 text-green-700 px-2 py-1 rounded font-bold transition-colors border border-green-200 cursor-pointer">
-                            Tap to use: BEHEALTHY10
+                        <button onclick="document.getElementById('coupon-code').value='LADDU10'; applyCoupon();" class="text-[11px] bg-green-50 hover:bg-green-100 text-green-700 px-2 py-1 rounded font-bold transition-colors border border-green-200 cursor-pointer">
+                            Tap to use: LADDU10
                         </button>
                     </div>
                     
@@ -1370,7 +1462,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                         <span id="cart-subtotal" class="font-bold">₹0</span>
                     </div>
                     <div id="discount-row" class="flex justify-between items-center text-green-600 hidden">
-                        <span class="text-sm font-bold">Discount (10% OFF):</span>
+                        <span class="text-sm font-bold">Discount (10% OFF on Laddus):</span>
                         <span id="cart-discount" class="font-bold">-₹0</span>
                     </div>
                     <div class="flex justify-between items-center pt-2 border-t border-gray-100">
@@ -1472,9 +1564,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             const message = document.getElementById('coupon-message');
             const code = codeInput.value.trim().toUpperCase();
 
-            if (code === 'BEHEALTHY10') {
+            if (code === 'LADDU10') {
                 isCouponApplied = true;
-                message.textContent = 'Coupon applied successfully! 10% OFF';
+                message.textContent = 'Coupon applied successfully! 10% OFF on Laddus';
                 message.className = 'text-xs font-bold mt-2 text-green-600 block';
             } else {
                 isCouponApplied = false;
@@ -1528,14 +1620,31 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 });
             }
 
-            // Calculate final totals
+            // Calculate final totals and discount (ONLY on laddus)
             let finalTotal = subtotal;
             let discountAmount = 0;
 
             if (isCouponApplied && subtotal > 0) {
-                discountAmount = subtotal * 0.10;
-                finalTotal = subtotal - discountAmount;
-                discountRow.classList.remove('hidden');
+                let ladduTotal = 0;
+                
+                // Sum up the cost of only items with "Laddu" in the name
+                cart.forEach((item) => {
+                    if (item.name.toLowerCase().includes('laddu')) {
+                        ladduTotal += (item.price * item.quantity);
+                    }
+                });
+
+                if (ladduTotal > 0) {
+                    discountAmount = ladduTotal * 0.10;
+                    finalTotal = subtotal - discountAmount;
+                    discountRow.classList.remove('hidden');
+                    document.getElementById('coupon-message').textContent = 'Coupon applied successfully! 10% OFF on Laddus';
+                    document.getElementById('coupon-message').className = 'text-xs font-bold mt-2 text-green-600 block';
+                } else {
+                    discountRow.classList.add('hidden');
+                    document.getElementById('coupon-message').textContent = 'Code applied, but your cart has no Laddus!';
+                    document.getElementById('coupon-message').className = 'text-xs font-bold mt-2 text-orange-500 block';
+                }
             } else {
                 discountRow.classList.add('hidden');
             }
@@ -1547,9 +1656,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             cartTotalEl.innerText = '₹' + Math.round(finalTotal);
             
             // Pop animation on cart icon
-            const cartIconBtn = document.querySelector('button[onclick="toggleCart()"]');
-            cartIconBtn.classList.add('scale-110');
-            setTimeout(() => cartIconBtn.classList.remove('scale-110'), 200);
+            if (count > 0) {
+                const cartIconBtn = document.querySelector('button[onclick="toggleCart()"]');
+                cartIconBtn.classList.add('scale-110');
+                setTimeout(() => cartIconBtn.classList.remove('scale-110'), 200);
+            }
         }
 
         function removeFromCart(index) {
@@ -1591,10 +1702,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             message += `*Subtotal: ₹${subtotal}*\n`;
 
             let finalTotal = subtotal;
+            
+            // Re-calculate laddu discount for checkout message
             if (isCouponApplied) {
-                let discountAmount = subtotal * 0.10;
-                finalTotal = subtotal - discountAmount;
-                message += `*Discount (BEHEALTHY10): -₹${discountAmount.toFixed(2)}*\n`;
+                let ladduTotal = 0;
+                cart.forEach((item) => {
+                    if (item.name.toLowerCase().includes('laddu')) {
+                        ladduTotal += (item.price * item.quantity);
+                    }
+                });
+                
+                if (ladduTotal > 0) {
+                    let discountAmount = ladduTotal * 0.10;
+                    finalTotal = subtotal - discountAmount;
+                    message += `*Discount (LADDU10): -₹${discountAmount.toFixed(2)}*\n`;
+                }
             }
 
             message += `*Final Total: ₹${Math.round(finalTotal)}*\n`;
@@ -1614,4 +1736,3 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </script>
 </body>
 </html>
-
