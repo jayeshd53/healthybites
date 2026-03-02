@@ -88,10 +88,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         .order-btn:active {
             transform: scale(0.98);
         }
-        /* Style adjustments for number input */
+        /* Hide Number Input Spinners for a cleaner E-commerce look */
         input[type="number"]::-webkit-inner-spin-button, 
         input[type="number"]::-webkit-outer-spin-button {
-            opacity: 1;
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type="number"] {
+            -moz-appearance: textfield;
         }
     </style>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-F24RGZ1WHC"></script>
@@ -242,445 +246,549 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Nachani Laddu">
-                <div class="h-64 rounded-xl overflow-hidden relative mb-4">
+            <div class="bg-white rounded-2xl p-5 shadow-card product-card border border-gray-100 group flex flex-col h-full" data-name="Nachani Laddu">
+                <div class="h-60 rounded-xl overflow-hidden relative mb-5">
                     <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-brand-dark z-10 shadow-sm">
                         <i class="fas fa-bone text-brand-primary mr-1"></i> Rich in Calcium
                     </div>
                     <img src="https://asmitaorganicfarm.com/cdn/shop/articles/recipes-banner_Ragi-ladoo_V1.webp?v=1761910185&width=1100" class="w-full h-full object-cover smooth-image" alt="Nachani Laddu">
                 </div>
-                <div class="px-2">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-bold text-brand-dark product-title">Nachani Laddu</h3>
-                        <span class="text-lg font-bold text-brand-primary">₹700/kg</span>
+                <div class="flex-1 flex flex-col">
+                    <div class="flex justify-between items-end mb-2">
+                        <div>
+                            <h3 class="text-xl font-bold text-brand-dark product-title leading-tight">Nachani Laddu</h3>
+                            <div class="text-[11px] text-gray-400 font-bold uppercase tracking-wide mt-1">Rate: ₹700/kg</div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-2xl font-black text-green-600 display-price">₹175</span>
+                        </div>
                     </div>
-                    <p class="text-sm text-gray-500 mb-4 line-clamp-2">Wholesome Ragi millet laddus perfect for strengthening bones.</p>
+                    <p class="text-sm text-gray-500 mb-5 line-clamp-2 h-10">Wholesome Ragi millet laddus perfect for strengthening bones.</p>
                     
-                    <div class="flex gap-2 mb-4 items-center">
-                        <div class="relative flex-1">
-                            <select class="weight-select w-full appearance-none bg-gray-50 border border-gray-200 text-gray-700 py-2 px-3 pr-8 rounded-xl text-sm focus:outline-none focus:border-green-500 transition-all cursor-pointer">
-                                <option value="175" data-weight="250g" selected>250g (₹175)</option>
-                                <option value="350" data-weight="500g">500g (₹350)</option>
-                                <option value="700" data-weight="1kg">1kg (₹700)</option>
+                    <div class="mt-auto space-y-3 mb-4">
+                        <div class="relative w-full">
+                            <select class="weight-select w-full appearance-none bg-gray-50 border border-gray-200 text-brand-dark py-2.5 px-4 pr-10 rounded-xl text-sm font-bold focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all cursor-pointer" onchange="updateDisplayPrice(this)">
+                                <option value="175" data-weight="250g" selected>250g Pack</option>
+                                <option value="350" data-weight="500g">500g Pack</option>
+                                <option value="700" data-weight="1kg">1kg Pack</option>
                             </select>
-                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
-                                <i class="fas fa-chevron-down text-xs"></i>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-400">
+                                <i class="fas fa-chevron-down text-sm"></i>
                             </div>
                         </div>
-                        <div class="w-20">
-                            <input type="number" class="quantity-input w-full bg-gray-50 border border-gray-200 text-gray-700 py-2 px-2 rounded-xl text-sm text-center focus:outline-none focus:border-green-500 transition-all" value="1" min="1" aria-label="Quantity">
+
+                        <div class="flex items-center justify-between border border-gray-200 rounded-xl bg-white overflow-hidden shadow-sm h-11">
+                            <button onclick="decreaseQty(this)" class="w-12 h-full text-gray-500 hover:bg-gray-100 hover:text-brand-primary transition-colors font-bold text-xl border-r border-gray-100 flex items-center justify-center focus:outline-none">-</button>
+                            <input type="number" class="quantity-input flex-1 h-full text-center bg-transparent focus:outline-none font-bold text-brand-dark text-lg p-0 border-0" value="1" min="1" aria-label="Quantity">
+                            <button onclick="increaseQty(this)" class="w-12 h-full text-gray-500 hover:bg-gray-100 hover:text-brand-primary transition-colors font-bold text-xl border-l border-gray-100 flex items-center justify-center focus:outline-none">+</button>
                         </div>
                     </div>
                     
-                    <button onclick="addToCart(this)" class="order-btn block w-full py-3 bg-green-600 text-white rounded-xl text-center font-bold text-sm hover:bg-green-700 transition-all shadow-lg transform active:scale-95">Add to Cart</button>
+                    <button onclick="addToCart(this)" class="order-btn block w-full py-3.5 bg-green-600 text-white rounded-xl text-center font-bold text-sm hover:bg-green-700 transition-all shadow-lg transform active:scale-95">Add to Cart</button>
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Udid Dal Laddu">
-                <div class="h-64 rounded-xl overflow-hidden relative mb-4">
+            <div class="bg-white rounded-2xl p-5 shadow-card product-card border border-gray-100 group flex flex-col h-full" data-name="Udid Dal Laddu">
+                <div class="h-60 rounded-xl overflow-hidden relative mb-5">
                     <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-brand-dark z-10 shadow-sm">
                         <i class="fas fa-dumbbell text-brand-secondary mr-1"></i> High Protein
                     </div>
                     <img src="https://www.cookwithkushi.com/wp-content/uploads/2019/09/Sunnundalu_Urad_Dal_Laddu_indian_sweet.jpg" class="w-full h-full object-cover smooth-image" alt="Uddid Dal Laddu">
                 </div>
-                <div class="px-2">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-bold text-brand-dark product-title">Udid Dal Laddu</h3>
-                        <span class="text-lg font-bold text-brand-primary">₹700/kg</span>
+                <div class="flex-1 flex flex-col">
+                    <div class="flex justify-between items-end mb-2">
+                        <div>
+                            <h3 class="text-xl font-bold text-brand-dark product-title leading-tight">Udid Dal Laddu</h3>
+                            <div class="text-[11px] text-gray-400 font-bold uppercase tracking-wide mt-1">Rate: ₹700/kg</div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-2xl font-black text-green-600 display-price">₹175</span>
+                        </div>
                     </div>
-                    <p class="text-sm text-gray-500 mb-4 line-clamp-2">Traditional black gram laddus, excellent for energy and muscle health.</p>
+                    <p class="text-sm text-gray-500 mb-5 line-clamp-2 h-10">Traditional black gram laddus, excellent for energy and muscle health.</p>
                     
-                    <div class="flex gap-2 mb-4 items-center">
-                        <div class="relative flex-1">
-                            <select class="weight-select w-full appearance-none bg-gray-50 border border-gray-200 text-gray-700 py-2 px-3 pr-8 rounded-xl text-sm focus:outline-none focus:border-green-500 transition-all cursor-pointer">
-                                <option value="175" data-weight="250g" selected>250g (₹175)</option>
-                                <option value="350" data-weight="500g">500g (₹350)</option>
-                                <option value="700" data-weight="1kg">1kg (₹700)</option>
+                    <div class="mt-auto space-y-3 mb-4">
+                        <div class="relative w-full">
+                            <select class="weight-select w-full appearance-none bg-gray-50 border border-gray-200 text-brand-dark py-2.5 px-4 pr-10 rounded-xl text-sm font-bold focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all cursor-pointer" onchange="updateDisplayPrice(this)">
+                                <option value="175" data-weight="250g" selected>250g Pack</option>
+                                <option value="350" data-weight="500g">500g Pack</option>
+                                <option value="700" data-weight="1kg">1kg Pack</option>
                             </select>
-                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
-                                <i class="fas fa-chevron-down text-xs"></i>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-400">
+                                <i class="fas fa-chevron-down text-sm"></i>
                             </div>
                         </div>
-                        <div class="w-20">
-                            <input type="number" class="quantity-input w-full bg-gray-50 border border-gray-200 text-gray-700 py-2 px-2 rounded-xl text-sm text-center focus:outline-none focus:border-green-500 transition-all" value="1" min="1" aria-label="Quantity">
+
+                        <div class="flex items-center justify-between border border-gray-200 rounded-xl bg-white overflow-hidden shadow-sm h-11">
+                            <button onclick="decreaseQty(this)" class="w-12 h-full text-gray-500 hover:bg-gray-100 hover:text-brand-primary transition-colors font-bold text-xl border-r border-gray-100 flex items-center justify-center focus:outline-none">-</button>
+                            <input type="number" class="quantity-input flex-1 h-full text-center bg-transparent focus:outline-none font-bold text-brand-dark text-lg p-0 border-0" value="1" min="1" aria-label="Quantity">
+                            <button onclick="increaseQty(this)" class="w-12 h-full text-gray-500 hover:bg-gray-100 hover:text-brand-primary transition-colors font-bold text-xl border-l border-gray-100 flex items-center justify-center focus:outline-none">+</button>
                         </div>
                     </div>
                     
-                    <button onclick="addToCart(this)" class="order-btn block w-full py-3 bg-green-600 text-white rounded-xl text-center font-bold text-sm hover:bg-green-700 transition-all shadow-lg transform active:scale-95">Add to Cart</button>
+                    <button onclick="addToCart(this)" class="order-btn block w-full py-3.5 bg-green-600 text-white rounded-xl text-center font-bold text-sm hover:bg-green-700 transition-all shadow-lg transform active:scale-95">Add to Cart</button>
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Dink Laddu">
-                <div class="h-64 rounded-xl overflow-hidden relative mb-4">
+            <div class="bg-white rounded-2xl p-5 shadow-card product-card border border-gray-100 group flex flex-col h-full" data-name="Dink Laddu">
+                <div class="h-60 rounded-xl overflow-hidden relative mb-5">
                     <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-brand-dark z-10 shadow-sm">
                         <i class="fas fa-snowflake text-blue-400 mr-1"></i> Joint Health
                     </div>
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjn7md6H1do24qki6aAydxfTUceKYzPjfEEA&s" class="w-full h-full object-cover smooth-image" alt="Dink Laddu">
                 </div>
-                <div class="px-2">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-bold text-brand-dark product-title">Dink Laddu</h3>
-                        <span class="text-lg font-bold text-brand-primary">₹1000/kg</span>
+                <div class="flex-1 flex flex-col">
+                    <div class="flex justify-between items-end mb-2">
+                        <div>
+                            <h3 class="text-xl font-bold text-brand-dark product-title leading-tight">Dink Laddu</h3>
+                            <div class="text-[11px] text-gray-400 font-bold uppercase tracking-wide mt-1">Rate: ₹1000/kg</div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-2xl font-black text-green-600 display-price">₹250</span>
+                        </div>
                     </div>
-                    <p class="text-sm text-gray-500 mb-4 line-clamp-2">Edible gum laddus, a winter superfood for joints and immunity.</p>
+                    <p class="text-sm text-gray-500 mb-5 line-clamp-2 h-10">Edible gum laddus, a winter superfood for joints and immunity.</p>
                     
-                    <div class="flex gap-2 mb-4 items-center">
-                        <div class="relative flex-1">
-                            <select class="weight-select w-full appearance-none bg-gray-50 border border-gray-200 text-gray-700 py-2 px-3 pr-8 rounded-xl text-sm focus:outline-none focus:border-green-500 transition-all cursor-pointer">
-                                <option value="250" data-weight="250g" selected>250g (₹250)</option>
-                                <option value="500" data-weight="500g">500g (₹500)</option>
-                                <option value="1000" data-weight="1kg">1kg (₹1000)</option>
+                    <div class="mt-auto space-y-3 mb-4">
+                        <div class="relative w-full">
+                            <select class="weight-select w-full appearance-none bg-gray-50 border border-gray-200 text-brand-dark py-2.5 px-4 pr-10 rounded-xl text-sm font-bold focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all cursor-pointer" onchange="updateDisplayPrice(this)">
+                                <option value="250" data-weight="250g" selected>250g Pack</option>
+                                <option value="500" data-weight="500g">500g Pack</option>
+                                <option value="1000" data-weight="1kg">1kg Pack</option>
                             </select>
-                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
-                                <i class="fas fa-chevron-down text-xs"></i>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-400">
+                                <i class="fas fa-chevron-down text-sm"></i>
                             </div>
                         </div>
-                        <div class="w-20">
-                            <input type="number" class="quantity-input w-full bg-gray-50 border border-gray-200 text-gray-700 py-2 px-2 rounded-xl text-sm text-center focus:outline-none focus:border-green-500 transition-all" value="1" min="1" aria-label="Quantity">
+
+                        <div class="flex items-center justify-between border border-gray-200 rounded-xl bg-white overflow-hidden shadow-sm h-11">
+                            <button onclick="decreaseQty(this)" class="w-12 h-full text-gray-500 hover:bg-gray-100 hover:text-brand-primary transition-colors font-bold text-xl border-r border-gray-100 flex items-center justify-center focus:outline-none">-</button>
+                            <input type="number" class="quantity-input flex-1 h-full text-center bg-transparent focus:outline-none font-bold text-brand-dark text-lg p-0 border-0" value="1" min="1" aria-label="Quantity">
+                            <button onclick="increaseQty(this)" class="w-12 h-full text-gray-500 hover:bg-gray-100 hover:text-brand-primary transition-colors font-bold text-xl border-l border-gray-100 flex items-center justify-center focus:outline-none">+</button>
                         </div>
                     </div>
                     
-                    <button onclick="addToCart(this)" class="order-btn block w-full py-3 bg-green-600 text-white rounded-xl text-center font-bold text-sm hover:bg-green-700 transition-all shadow-lg transform active:scale-95">Add to Cart</button>
+                    <button onclick="addToCart(this)" class="order-btn block w-full py-3.5 bg-green-600 text-white rounded-xl text-center font-bold text-sm hover:bg-green-700 transition-all shadow-lg transform active:scale-95">Add to Cart</button>
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Shengada Laddu">
-                <div class="h-64 rounded-xl overflow-hidden relative mb-4">
+            <div class="bg-white rounded-2xl p-5 shadow-card product-card border border-gray-100 group flex flex-col h-full" data-name="Shengada Laddu">
+                <div class="h-60 rounded-xl overflow-hidden relative mb-5">
                     <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-brand-dark z-10 shadow-sm">
                         <i class="fas fa-om text-orange-500 mr-1"></i> Fasting Special
                     </div>
                     <img src="https://patilkaki.com/cdn/shop/files/1_1_-1500x1500.jpg?v=1741163289" class="w-full h-full object-cover smooth-image" alt="Shengada Laddu">
                 </div>
-                <div class="px-2">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-bold text-brand-dark product-title">Shengada Laddu</h3>
-                        <span class="text-lg font-bold text-brand-primary">₹400/kg</span>
+                <div class="flex-1 flex flex-col">
+                    <div class="flex justify-between items-end mb-2">
+                        <div>
+                            <h3 class="text-xl font-bold text-brand-dark product-title leading-tight">Shengada Laddu</h3>
+                            <div class="text-[11px] text-gray-400 font-bold uppercase tracking-wide mt-1">Rate: ₹400/kg</div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-2xl font-black text-green-600 display-price">₹100</span>
+                        </div>
                     </div>
-                    <p class="text-sm text-gray-500 mb-4 line-clamp-2">Classic Peanut laddus rich in protein and healthy fats.</p>
+                    <p class="text-sm text-gray-500 mb-5 line-clamp-2 h-10">Classic Peanut laddus rich in protein and healthy fats.</p>
                     
-                    <div class="flex gap-2 mb-4 items-center">
-                        <div class="relative flex-1">
-                            <select class="weight-select w-full appearance-none bg-gray-50 border border-gray-200 text-gray-700 py-2 px-3 pr-8 rounded-xl text-sm focus:outline-none focus:border-green-500 transition-all cursor-pointer">
-                                <option value="100" data-weight="250g" selected>250g (₹100)</option>
-                                <option value="200" data-weight="500g">500g (₹200)</option>
-                                <option value="400" data-weight="1kg">1kg (₹400)</option>
+                    <div class="mt-auto space-y-3 mb-4">
+                        <div class="relative w-full">
+                            <select class="weight-select w-full appearance-none bg-gray-50 border border-gray-200 text-brand-dark py-2.5 px-4 pr-10 rounded-xl text-sm font-bold focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all cursor-pointer" onchange="updateDisplayPrice(this)">
+                                <option value="100" data-weight="250g" selected>250g Pack</option>
+                                <option value="200" data-weight="500g">500g Pack</option>
+                                <option value="400" data-weight="1kg">1kg Pack</option>
                             </select>
-                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
-                                <i class="fas fa-chevron-down text-xs"></i>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-400">
+                                <i class="fas fa-chevron-down text-sm"></i>
                             </div>
                         </div>
-                        <div class="w-20">
-                            <input type="number" class="quantity-input w-full bg-gray-50 border border-gray-200 text-gray-700 py-2 px-2 rounded-xl text-sm text-center focus:outline-none focus:border-green-500 transition-all" value="1" min="1" aria-label="Quantity">
+
+                        <div class="flex items-center justify-between border border-gray-200 rounded-xl bg-white overflow-hidden shadow-sm h-11">
+                            <button onclick="decreaseQty(this)" class="w-12 h-full text-gray-500 hover:bg-gray-100 hover:text-brand-primary transition-colors font-bold text-xl border-r border-gray-100 flex items-center justify-center focus:outline-none">-</button>
+                            <input type="number" class="quantity-input flex-1 h-full text-center bg-transparent focus:outline-none font-bold text-brand-dark text-lg p-0 border-0" value="1" min="1" aria-label="Quantity">
+                            <button onclick="increaseQty(this)" class="w-12 h-full text-gray-500 hover:bg-gray-100 hover:text-brand-primary transition-colors font-bold text-xl border-l border-gray-100 flex items-center justify-center focus:outline-none">+</button>
                         </div>
                     </div>
                     
-                    <button onclick="addToCart(this)" class="order-btn block w-full py-3 bg-green-600 text-white rounded-xl text-center font-bold text-sm hover:bg-green-700 transition-all shadow-lg transform active:scale-95">Add to Cart</button>
+                    <button onclick="addToCart(this)" class="order-btn block w-full py-3.5 bg-green-600 text-white rounded-xl text-center font-bold text-sm hover:bg-green-700 transition-all shadow-lg transform active:scale-95">Add to Cart</button>
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Dryfruits Laddu">
-                <div class="h-64 rounded-xl overflow-hidden relative mb-4">
+            <div class="bg-white rounded-2xl p-5 shadow-card product-card border border-gray-100 group flex flex-col h-full" data-name="Dryfruits Laddu">
+                <div class="h-60 rounded-xl overflow-hidden relative mb-5">
                     <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-brand-dark z-10 shadow-sm">
                         <i class="fas fa-bolt text-yellow-500 mr-1"></i> Energy Booster
                     </div>
                     <img src="https://rashmisweets.in/wp-content/uploads/2024/06/Dryfruit-Godia-Ladoo1.png" class="w-full h-full object-cover smooth-image" alt="Dryfruits Laddu">
                 </div>
-                <div class="px-2">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-bold text-brand-dark product-title">Dryfruits Laddu</h3>
-                        <span class="text-lg font-bold text-brand-primary">₹1100/kg</span>
+                <div class="flex-1 flex flex-col">
+                    <div class="flex justify-between items-end mb-2">
+                        <div>
+                            <h3 class="text-xl font-bold text-brand-dark product-title leading-tight">Dryfruits Laddu</h3>
+                            <div class="text-[11px] text-gray-400 font-bold uppercase tracking-wide mt-1">Rate: ₹1100/kg</div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-2xl font-black text-green-600 display-price">₹275</span>
+                        </div>
                     </div>
-                    <p class="text-sm text-gray-500 mb-4 line-clamp-2">A premium mix of almonds, cashews, pistachios, and figs.</p>
+                    <p class="text-sm text-gray-500 mb-5 line-clamp-2 h-10">A premium mix of almonds, cashews, pistachios, and figs.</p>
                     
-                    <div class="flex gap-2 mb-4 items-center">
-                        <div class="relative flex-1">
-                            <select class="weight-select w-full appearance-none bg-gray-50 border border-gray-200 text-gray-700 py-2 px-3 pr-8 rounded-xl text-sm focus:outline-none focus:border-green-500 transition-all cursor-pointer">
-                                <option value="275" data-weight="250g" selected>250g (₹275)</option>
-                                <option value="550" data-weight="500g">500g (₹550)</option>
-                                <option value="1100" data-weight="1kg">1kg (₹1100)</option>
+                    <div class="mt-auto space-y-3 mb-4">
+                        <div class="relative w-full">
+                            <select class="weight-select w-full appearance-none bg-gray-50 border border-gray-200 text-brand-dark py-2.5 px-4 pr-10 rounded-xl text-sm font-bold focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all cursor-pointer" onchange="updateDisplayPrice(this)">
+                                <option value="275" data-weight="250g" selected>250g Pack</option>
+                                <option value="550" data-weight="500g">500g Pack</option>
+                                <option value="1100" data-weight="1kg">1kg Pack</option>
                             </select>
-                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
-                                <i class="fas fa-chevron-down text-xs"></i>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-400">
+                                <i class="fas fa-chevron-down text-sm"></i>
                             </div>
                         </div>
-                        <div class="w-20">
-                            <input type="number" class="quantity-input w-full bg-gray-50 border border-gray-200 text-gray-700 py-2 px-2 rounded-xl text-sm text-center focus:outline-none focus:border-green-500 transition-all" value="1" min="1" aria-label="Quantity">
+
+                        <div class="flex items-center justify-between border border-gray-200 rounded-xl bg-white overflow-hidden shadow-sm h-11">
+                            <button onclick="decreaseQty(this)" class="w-12 h-full text-gray-500 hover:bg-gray-100 hover:text-brand-primary transition-colors font-bold text-xl border-r border-gray-100 flex items-center justify-center focus:outline-none">-</button>
+                            <input type="number" class="quantity-input flex-1 h-full text-center bg-transparent focus:outline-none font-bold text-brand-dark text-lg p-0 border-0" value="1" min="1" aria-label="Quantity">
+                            <button onclick="increaseQty(this)" class="w-12 h-full text-gray-500 hover:bg-gray-100 hover:text-brand-primary transition-colors font-bold text-xl border-l border-gray-100 flex items-center justify-center focus:outline-none">+</button>
                         </div>
                     </div>
                     
-                    <button onclick="addToCart(this)" class="order-btn block w-full py-3 bg-green-600 text-white rounded-xl text-center font-bold text-sm hover:bg-green-700 transition-all shadow-lg transform active:scale-95">Add to Cart</button>
+                    <button onclick="addToCart(this)" class="order-btn block w-full py-3.5 bg-green-600 text-white rounded-xl text-center font-bold text-sm hover:bg-green-700 transition-all shadow-lg transform active:scale-95">Add to Cart</button>
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Til (Sesame) Laddu">
-                <div class="h-64 rounded-xl overflow-hidden relative mb-4">
+            <div class="bg-white rounded-2xl p-5 shadow-card product-card border border-gray-100 group flex flex-col h-full" data-name="Til (Sesame) Laddu">
+                <div class="h-60 rounded-xl overflow-hidden relative mb-5">
                     <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-brand-dark z-10 shadow-sm">
                         <i class="fas fa-heart text-red-500 mr-1"></i> Heart Healthy
                     </div>
                     <img src="https://images.archanaskitchen.com/images/recipes/indian/sweet-recipes/Til_Ke_Laddu_Recipe_Sesame_Seeds_Laddu_Recipe_375c019880.jpg" class="w-full h-full object-cover smooth-image" alt="Til Laddu">
                 </div>
-                <div class="px-2">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-bold text-brand-dark product-title">Til (Sesame) Laddu</h3>
-                        <span class="text-lg font-bold text-brand-primary">₹650/kg</span>
+                <div class="flex-1 flex flex-col">
+                    <div class="flex justify-between items-end mb-2">
+                        <div>
+                            <h3 class="text-xl font-bold text-brand-dark product-title leading-tight">Til (Sesame) Laddu</h3>
+                            <div class="text-[11px] text-gray-400 font-bold uppercase tracking-wide mt-1">Rate: ₹650/kg</div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-2xl font-black text-green-600 display-price">₹163</span>
+                        </div>
                     </div>
-                    <p class="text-sm text-gray-500 mb-4 line-clamp-2">Til laddus, rich in calcium, iron, healthy fats, and antioxidants.</p>
+                    <p class="text-sm text-gray-500 mb-5 line-clamp-2 h-10">Til laddus, rich in calcium, iron, healthy fats, and antioxidants.</p>
                     
-                    <div class="flex gap-2 mb-4 items-center">
-                        <div class="relative flex-1">
-                            <select class="weight-select w-full appearance-none bg-gray-50 border border-gray-200 text-gray-700 py-2 px-3 pr-8 rounded-xl text-sm focus:outline-none focus:border-green-500 transition-all cursor-pointer">
-                                <option value="163" data-weight="250g" selected>250g (₹163)</option>
-                                <option value="325" data-weight="500g">500g (₹325)</option>
-                                <option value="650" data-weight="1kg">1kg (₹650)</option>
+                    <div class="mt-auto space-y-3 mb-4">
+                        <div class="relative w-full">
+                            <select class="weight-select w-full appearance-none bg-gray-50 border border-gray-200 text-brand-dark py-2.5 px-4 pr-10 rounded-xl text-sm font-bold focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all cursor-pointer" onchange="updateDisplayPrice(this)">
+                                <option value="163" data-weight="250g" selected>250g Pack</option>
+                                <option value="325" data-weight="500g">500g Pack</option>
+                                <option value="650" data-weight="1kg">1kg Pack</option>
                             </select>
-                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
-                                <i class="fas fa-chevron-down text-xs"></i>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-400">
+                                <i class="fas fa-chevron-down text-sm"></i>
                             </div>
                         </div>
-                        <div class="w-20">
-                            <input type="number" class="quantity-input w-full bg-gray-50 border border-gray-200 text-gray-700 py-2 px-2 rounded-xl text-sm text-center focus:outline-none focus:border-green-500 transition-all" value="1" min="1" aria-label="Quantity">
+
+                        <div class="flex items-center justify-between border border-gray-200 rounded-xl bg-white overflow-hidden shadow-sm h-11">
+                            <button onclick="decreaseQty(this)" class="w-12 h-full text-gray-500 hover:bg-gray-100 hover:text-brand-primary transition-colors font-bold text-xl border-r border-gray-100 flex items-center justify-center focus:outline-none">-</button>
+                            <input type="number" class="quantity-input flex-1 h-full text-center bg-transparent focus:outline-none font-bold text-brand-dark text-lg p-0 border-0" value="1" min="1" aria-label="Quantity">
+                            <button onclick="increaseQty(this)" class="w-12 h-full text-gray-500 hover:bg-gray-100 hover:text-brand-primary transition-colors font-bold text-xl border-l border-gray-100 flex items-center justify-center focus:outline-none">+</button>
                         </div>
                     </div>
                     
-                    <button onclick="addToCart(this)" class="order-btn block w-full py-3 bg-green-600 text-white rounded-xl text-center font-bold text-sm hover:bg-green-700 transition-all shadow-lg transform active:scale-95">Add to Cart</button>
+                    <button onclick="addToCart(this)" class="order-btn block w-full py-3.5 bg-green-600 text-white rounded-xl text-center font-bold text-sm hover:bg-green-700 transition-all shadow-lg transform active:scale-95">Add to Cart</button>
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Chocolate Laddu">
-                <div class="h-64 rounded-xl overflow-hidden relative mb-4">
+            <div class="bg-white rounded-2xl p-5 shadow-card product-card border border-gray-100 group flex flex-col h-full" data-name="Chocolate Laddu">
+                <div class="h-60 rounded-xl overflow-hidden relative mb-5">
                     <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-brand-dark z-10 shadow-sm">
                         <i class="fas fa-bread-slice text-yellow-600 mr-1"></i> Gluten Free
                     </div>
                     <img src="https://www.sweedesi.com/cdn/shop/products/chocolate-laddu-sweedesi-413934.jpg?v=1740034240" class="w-full h-full object-cover smooth-image" alt="Chocolate Laddu">
                 </div>
-                <div class="px-2">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-bold text-brand-dark product-title">Chocolate Laddu</h3>
-                        <span class="text-lg font-bold text-brand-primary">₹600/kg</span>
+                <div class="flex-1 flex flex-col">
+                    <div class="flex justify-between items-end mb-2">
+                        <div>
+                            <h3 class="text-xl font-bold text-brand-dark product-title leading-tight">Chocolate Laddu</h3>
+                            <div class="text-[11px] text-gray-400 font-bold uppercase tracking-wide mt-1">Rate: ₹600/kg</div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-2xl font-black text-green-600 display-price">₹150</span>
+                        </div>
                     </div>
-                    <p class="text-sm text-gray-500 mb-4 line-clamp-2">Chocolate laddus, rich in antioxidants, magnesium, and feel-good compounds.</p>
+                    <p class="text-sm text-gray-500 mb-5 line-clamp-2 h-10">Chocolate laddus, rich in antioxidants, magnesium, and feel-good compounds.</p>
                     
-                    <div class="flex gap-2 mb-4 items-center">
-                        <div class="relative flex-1">
-                            <select class="weight-select w-full appearance-none bg-gray-50 border border-gray-200 text-gray-700 py-2 px-3 pr-8 rounded-xl text-sm focus:outline-none focus:border-green-500 transition-all cursor-pointer">
-                                <option value="150" data-weight="250g" selected>250g (₹150)</option>
-                                <option value="300" data-weight="500g">500g (₹300)</option>
-                                <option value="600" data-weight="1kg">1kg (₹600)</option>
+                    <div class="mt-auto space-y-3 mb-4">
+                        <div class="relative w-full">
+                            <select class="weight-select w-full appearance-none bg-gray-50 border border-gray-200 text-brand-dark py-2.5 px-4 pr-10 rounded-xl text-sm font-bold focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all cursor-pointer" onchange="updateDisplayPrice(this)">
+                                <option value="150" data-weight="250g" selected>250g Pack</option>
+                                <option value="300" data-weight="500g">500g Pack</option>
+                                <option value="600" data-weight="1kg">1kg Pack</option>
                             </select>
-                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
-                                <i class="fas fa-chevron-down text-xs"></i>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-400">
+                                <i class="fas fa-chevron-down text-sm"></i>
                             </div>
                         </div>
-                        <div class="w-20">
-                            <input type="number" class="quantity-input w-full bg-gray-50 border border-gray-200 text-gray-700 py-2 px-2 rounded-xl text-sm text-center focus:outline-none focus:border-green-500 transition-all" value="1" min="1" aria-label="Quantity">
+
+                        <div class="flex items-center justify-between border border-gray-200 rounded-xl bg-white overflow-hidden shadow-sm h-11">
+                            <button onclick="decreaseQty(this)" class="w-12 h-full text-gray-500 hover:bg-gray-100 hover:text-brand-primary transition-colors font-bold text-xl border-r border-gray-100 flex items-center justify-center focus:outline-none">-</button>
+                            <input type="number" class="quantity-input flex-1 h-full text-center bg-transparent focus:outline-none font-bold text-brand-dark text-lg p-0 border-0" value="1" min="1" aria-label="Quantity">
+                            <button onclick="increaseQty(this)" class="w-12 h-full text-gray-500 hover:bg-gray-100 hover:text-brand-primary transition-colors font-bold text-xl border-l border-gray-100 flex items-center justify-center focus:outline-none">+</button>
                         </div>
                     </div>
                     
-                    <button onclick="addToCart(this)" class="order-btn block w-full py-3 bg-green-600 text-white rounded-xl text-center font-bold text-sm hover:bg-green-700 transition-all shadow-lg transform active:scale-95">Add to Cart</button>
+                    <button onclick="addToCart(this)" class="order-btn block w-full py-3.5 bg-green-600 text-white rounded-xl text-center font-bold text-sm hover:bg-green-700 transition-all shadow-lg transform active:scale-95">Add to Cart</button>
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Coconut Laddu">
-                <div class="h-64 rounded-xl overflow-hidden relative mb-4">
+            <div class="bg-white rounded-2xl p-5 shadow-card product-card border border-gray-100 group flex flex-col h-full" data-name="Coconut Laddu">
+                <div class="h-60 rounded-xl overflow-hidden relative mb-5">
                     <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-brand-dark z-10 shadow-sm">
                         <i class="fas fa-tree text-green-600 mr-1"></i> Manganese Rich
                     </div>
                     <img src="https://somethingiscooking.com/wp-content/uploads/2021/04/Coconut-Ladoo-6.jpg" class="w-full h-full object-cover smooth-image" alt="Coconut Laddu">
                 </div>
-                <div class="px-2">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-bold text-brand-dark product-title">Coconut Laddu</h3>
-                        <span class="text-lg font-bold text-brand-primary">₹400/kg</span>
+                <div class="flex-1 flex flex-col">
+                    <div class="flex justify-between items-end mb-2">
+                        <div>
+                            <h3 class="text-xl font-bold text-brand-dark product-title leading-tight">Coconut Laddu</h3>
+                            <div class="text-[11px] text-gray-400 font-bold uppercase tracking-wide mt-1">Rate: ₹400/kg</div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-2xl font-black text-green-600 display-price">₹100</span>
+                        </div>
                     </div>
-                    <p class="text-sm text-gray-500 mb-4 line-clamp-2">Fresh coconut delight containing essential minerals like Copper.</p>
+                    <p class="text-sm text-gray-500 mb-5 line-clamp-2 h-10">Fresh coconut delight containing essential minerals like Copper.</p>
                     
-                    <div class="flex gap-2 mb-4 items-center">
-                        <div class="relative flex-1">
-                            <select class="weight-select w-full appearance-none bg-gray-50 border border-gray-200 text-gray-700 py-2 px-3 pr-8 rounded-xl text-sm focus:outline-none focus:border-green-500 transition-all cursor-pointer">
-                                <option value="100" data-weight="250g" selected>250g (₹100)</option>
-                                <option value="200" data-weight="500g">500g (₹200)</option>
-                                <option value="400" data-weight="1kg">1kg (₹400)</option>
+                    <div class="mt-auto space-y-3 mb-4">
+                        <div class="relative w-full">
+                            <select class="weight-select w-full appearance-none bg-gray-50 border border-gray-200 text-brand-dark py-2.5 px-4 pr-10 rounded-xl text-sm font-bold focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all cursor-pointer" onchange="updateDisplayPrice(this)">
+                                <option value="100" data-weight="250g" selected>250g Pack</option>
+                                <option value="200" data-weight="500g">500g Pack</option>
+                                <option value="400" data-weight="1kg">1kg Pack</option>
                             </select>
-                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
-                                <i class="fas fa-chevron-down text-xs"></i>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-400">
+                                <i class="fas fa-chevron-down text-sm"></i>
                             </div>
                         </div>
-                        <div class="w-20">
-                            <input type="number" class="quantity-input w-full bg-gray-50 border border-gray-200 text-gray-700 py-2 px-2 rounded-xl text-sm text-center focus:outline-none focus:border-green-500 transition-all" value="1" min="1" aria-label="Quantity">
+
+                        <div class="flex items-center justify-between border border-gray-200 rounded-xl bg-white overflow-hidden shadow-sm h-11">
+                            <button onclick="decreaseQty(this)" class="w-12 h-full text-gray-500 hover:bg-gray-100 hover:text-brand-primary transition-colors font-bold text-xl border-r border-gray-100 flex items-center justify-center focus:outline-none">-</button>
+                            <input type="number" class="quantity-input flex-1 h-full text-center bg-transparent focus:outline-none font-bold text-brand-dark text-lg p-0 border-0" value="1" min="1" aria-label="Quantity">
+                            <button onclick="increaseQty(this)" class="w-12 h-full text-gray-500 hover:bg-gray-100 hover:text-brand-primary transition-colors font-bold text-xl border-l border-gray-100 flex items-center justify-center focus:outline-none">+</button>
                         </div>
                     </div>
                     
-                    <button onclick="addToCart(this)" class="order-btn block w-full py-3 bg-green-600 text-white rounded-xl text-center font-bold text-sm hover:bg-green-700 transition-all shadow-lg transform active:scale-95">Add to Cart</button>
+                    <button onclick="addToCart(this)" class="order-btn block w-full py-3.5 bg-green-600 text-white rounded-xl text-center font-bold text-sm hover:bg-green-700 transition-all shadow-lg transform active:scale-95">Add to Cart</button>
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Oats + Makhana Laddu">
-                <div class="h-64 rounded-xl overflow-hidden relative mb-4">
+            <div class="bg-white rounded-2xl p-5 shadow-card product-card border border-gray-100 group flex flex-col h-full" data-name="Oats + Makhana Laddu">
+                <div class="h-60 rounded-xl overflow-hidden relative mb-5">
                     <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-brand-dark z-10 shadow-sm">
                         <i class="fas fa-feather-alt text-gray-500 mr-1"></i> High Fiber
                     </div>
                     <img src="https://chhedadryfruits.com/cdn/shop/files/OatsMakhanaLadoo.jpg?v=1725338036" class="w-full h-full object-cover smooth-image" alt="Oats Makhana">
                 </div>
-                <div class="px-2">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-bold text-brand-dark product-title">Oats + Makhana</h3>
-                        <span class="text-lg font-bold text-brand-primary">₹800/kg</span>
+                <div class="flex-1 flex flex-col">
+                    <div class="flex justify-between items-end mb-2">
+                        <div>
+                            <h3 class="text-xl font-bold text-brand-dark product-title leading-tight">Oats + Makhana</h3>
+                            <div class="text-[11px] text-gray-400 font-bold uppercase tracking-wide mt-1">Rate: ₹800/kg</div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-2xl font-black text-green-600 display-price">₹200</span>
+                        </div>
                     </div>
-                    <p class="text-sm text-gray-500 mb-4 line-clamp-2">The ultimate low-calorie snack. Great for weight management.</p>
+                    <p class="text-sm text-gray-500 mb-5 line-clamp-2 h-10">The ultimate low-calorie snack. Great for weight management.</p>
                     
-                    <div class="flex gap-2 mb-4 items-center">
-                        <div class="relative flex-1">
-                            <select class="weight-select w-full appearance-none bg-gray-50 border border-gray-200 text-gray-700 py-2 px-3 pr-8 rounded-xl text-sm focus:outline-none focus:border-green-500 transition-all cursor-pointer">
-                                <option value="200" data-weight="250g" selected>250g (₹200)</option>
-                                <option value="400" data-weight="500g">500g (₹400)</option>
-                                <option value="800" data-weight="1kg">1kg (₹800)</option>
+                    <div class="mt-auto space-y-3 mb-4">
+                        <div class="relative w-full">
+                            <select class="weight-select w-full appearance-none bg-gray-50 border border-gray-200 text-brand-dark py-2.5 px-4 pr-10 rounded-xl text-sm font-bold focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all cursor-pointer" onchange="updateDisplayPrice(this)">
+                                <option value="200" data-weight="250g" selected>250g Pack</option>
+                                <option value="400" data-weight="500g">500g Pack</option>
+                                <option value="800" data-weight="1kg">1kg Pack</option>
                             </select>
-                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
-                                <i class="fas fa-chevron-down text-xs"></i>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-400">
+                                <i class="fas fa-chevron-down text-sm"></i>
                             </div>
                         </div>
-                        <div class="w-20">
-                            <input type="number" class="quantity-input w-full bg-gray-50 border border-gray-200 text-gray-700 py-2 px-2 rounded-xl text-sm text-center focus:outline-none focus:border-green-500 transition-all" value="1" min="1" aria-label="Quantity">
+
+                        <div class="flex items-center justify-between border border-gray-200 rounded-xl bg-white overflow-hidden shadow-sm h-11">
+                            <button onclick="decreaseQty(this)" class="w-12 h-full text-gray-500 hover:bg-gray-100 hover:text-brand-primary transition-colors font-bold text-xl border-r border-gray-100 flex items-center justify-center focus:outline-none">-</button>
+                            <input type="number" class="quantity-input flex-1 h-full text-center bg-transparent focus:outline-none font-bold text-brand-dark text-lg p-0 border-0" value="1" min="1" aria-label="Quantity">
+                            <button onclick="increaseQty(this)" class="w-12 h-full text-gray-500 hover:bg-gray-100 hover:text-brand-primary transition-colors font-bold text-xl border-l border-gray-100 flex items-center justify-center focus:outline-none">+</button>
                         </div>
                     </div>
                     
-                    <button onclick="addToCart(this)" class="order-btn block w-full py-3 bg-green-600 text-white rounded-xl text-center font-bold text-sm hover:bg-green-700 transition-all shadow-lg transform active:scale-95">Add to Cart</button>
+                    <button onclick="addToCart(this)" class="order-btn block w-full py-3.5 bg-green-600 text-white rounded-xl text-center font-bold text-sm hover:bg-green-700 transition-all shadow-lg transform active:scale-95">Add to Cart</button>
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Moringa Laddu">
-                <div class="h-64 rounded-xl overflow-hidden relative mb-4">
+            <div class="bg-white rounded-2xl p-5 shadow-card product-card border border-gray-100 group flex flex-col h-full" data-name="Moringa Laddu">
+                <div class="h-60 rounded-xl overflow-hidden relative mb-5">
                     <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-brand-dark z-10 shadow-sm">
                         <i class="fas fa-plus-circle text-green-500 mr-1"></i> Rich in Vitamin C
                     </div>
                     <img src="moringa.jpeg" class="w-full h-full object-cover smooth-image" alt="Moringa Laddu">
                 </div>
-                <div class="px-2">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-bold text-brand-dark product-title">Moringa Laddu</h3>
-                        <span class="text-lg font-bold text-brand-primary">₹900/kg</span>
+                <div class="flex-1 flex flex-col">
+                    <div class="flex justify-between items-end mb-2">
+                        <div>
+                            <h3 class="text-xl font-bold text-brand-dark product-title leading-tight">Moringa Laddu</h3>
+                            <div class="text-[11px] text-gray-400 font-bold uppercase tracking-wide mt-1">Rate: ₹900/kg</div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-2xl font-black text-green-600 display-price">₹225</span>
+                        </div>
                     </div>
-                    <p class="text-sm text-gray-500 mb-4 line-clamp-2">Packed with Vitamin C, A, and E. A true immunity powerhouse.</p>
+                    <p class="text-sm text-gray-500 mb-5 line-clamp-2 h-10">Packed with Vitamin C, A, and E. A true immunity powerhouse.</p>
                     
-                    <div class="flex gap-2 mb-4 items-center">
-                        <div class="relative flex-1">
-                            <select class="weight-select w-full appearance-none bg-gray-50 border border-gray-200 text-gray-700 py-2 px-3 pr-8 rounded-xl text-sm focus:outline-none focus:border-green-500 transition-all cursor-pointer">
-                                <option value="225" data-weight="250g" selected>250g (₹225)</option>
-                                <option value="450" data-weight="500g">500g (₹450)</option>
-                                <option value="900" data-weight="1kg">1kg (₹900)</option>
+                    <div class="mt-auto space-y-3 mb-4">
+                        <div class="relative w-full">
+                            <select class="weight-select w-full appearance-none bg-gray-50 border border-gray-200 text-brand-dark py-2.5 px-4 pr-10 rounded-xl text-sm font-bold focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all cursor-pointer" onchange="updateDisplayPrice(this)">
+                                <option value="225" data-weight="250g" selected>250g Pack</option>
+                                <option value="450" data-weight="500g">500g Pack</option>
+                                <option value="900" data-weight="1kg">1kg Pack</option>
                             </select>
-                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
-                                <i class="fas fa-chevron-down text-xs"></i>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-400">
+                                <i class="fas fa-chevron-down text-sm"></i>
                             </div>
                         </div>
-                        <div class="w-20">
-                            <input type="number" class="quantity-input w-full bg-gray-50 border border-gray-200 text-gray-700 py-2 px-2 rounded-xl text-sm text-center focus:outline-none focus:border-green-500 transition-all" value="1" min="1" aria-label="Quantity">
+
+                        <div class="flex items-center justify-between border border-gray-200 rounded-xl bg-white overflow-hidden shadow-sm h-11">
+                            <button onclick="decreaseQty(this)" class="w-12 h-full text-gray-500 hover:bg-gray-100 hover:text-brand-primary transition-colors font-bold text-xl border-r border-gray-100 flex items-center justify-center focus:outline-none">-</button>
+                            <input type="number" class="quantity-input flex-1 h-full text-center bg-transparent focus:outline-none font-bold text-brand-dark text-lg p-0 border-0" value="1" min="1" aria-label="Quantity">
+                            <button onclick="increaseQty(this)" class="w-12 h-full text-gray-500 hover:bg-gray-100 hover:text-brand-primary transition-colors font-bold text-xl border-l border-gray-100 flex items-center justify-center focus:outline-none">+</button>
                         </div>
                     </div>
                     
-                    <button onclick="addToCart(this)" class="order-btn block w-full py-3 bg-green-600 text-white rounded-xl text-center font-bold text-sm hover:bg-green-700 transition-all shadow-lg transform active:scale-95">Add to Cart</button>
+                    <button onclick="addToCart(this)" class="order-btn block w-full py-3.5 bg-green-600 text-white rounded-xl text-center font-bold text-sm hover:bg-green-700 transition-all shadow-lg transform active:scale-95">Add to Cart</button>
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Aliv (Halim) Laddu">
-                <div class="h-64 rounded-xl overflow-hidden relative mb-4">
+            <div class="bg-white rounded-2xl p-5 shadow-card product-card border border-gray-100 group flex flex-col h-full" data-name="Aliv (Halim) Laddu">
+                <div class="h-60 rounded-xl overflow-hidden relative mb-5">
                     <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-brand-dark z-10 shadow-sm">
                         <i class="fas fa-female text-pink-500 mr-1"></i> Women Wellness
                     </div>
                     <img src="https://hormonereset.in/wp-content/uploads/2024/06/Image-empty-state-57.webp" class="w-full h-full object-cover smooth-image" alt="Aliv Laddu">
                 </div>
-                <div class="px-2">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-bold text-brand-dark product-title">Aliv (Halim) Laddu</h3>
-                        <span class="text-lg font-bold text-brand-primary">₹950/kg</span>
+                <div class="flex-1 flex flex-col">
+                    <div class="flex justify-between items-end mb-2">
+                        <div>
+                            <h3 class="text-xl font-bold text-brand-dark product-title leading-tight">Aliv (Halim) Laddu</h3>
+                            <div class="text-[11px] text-gray-400 font-bold uppercase tracking-wide mt-1">Rate: ₹950/kg</div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-2xl font-black text-green-600 display-price">₹238</span>
+                        </div>
                     </div>
-                    <p class="text-sm text-gray-500 mb-4 line-clamp-2">Aliv seed laddus that support strength, recovery, and hormonal balance.</p>
+                    <p class="text-sm text-gray-500 mb-5 line-clamp-2 h-10">Aliv seed laddus that support strength, recovery, and hormonal balance.</p>
                     
-                    <div class="flex gap-2 mb-4 items-center">
-                        <div class="relative flex-1">
-                            <select class="weight-select w-full appearance-none bg-gray-50 border border-gray-200 text-gray-700 py-2 px-3 pr-8 rounded-xl text-sm focus:outline-none focus:border-green-500 transition-all cursor-pointer">
-                                <option value="238" data-weight="250g" selected>250g (₹238)</option>
-                                <option value="475" data-weight="500g">500g (₹475)</option>
-                                <option value="950" data-weight="1kg">1kg (₹950)</option>
+                    <div class="mt-auto space-y-3 mb-4">
+                        <div class="relative w-full">
+                            <select class="weight-select w-full appearance-none bg-gray-50 border border-gray-200 text-brand-dark py-2.5 px-4 pr-10 rounded-xl text-sm font-bold focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all cursor-pointer" onchange="updateDisplayPrice(this)">
+                                <option value="238" data-weight="250g" selected>250g Pack</option>
+                                <option value="475" data-weight="500g">500g Pack</option>
+                                <option value="950" data-weight="1kg">1kg Pack</option>
                             </select>
-                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
-                                <i class="fas fa-chevron-down text-xs"></i>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-400">
+                                <i class="fas fa-chevron-down text-sm"></i>
                             </div>
                         </div>
-                        <div class="w-20">
-                            <input type="number" class="quantity-input w-full bg-gray-50 border border-gray-200 text-gray-700 py-2 px-2 rounded-xl text-sm text-center focus:outline-none focus:border-green-500 transition-all" value="1" min="1" aria-label="Quantity">
+
+                        <div class="flex items-center justify-between border border-gray-200 rounded-xl bg-white overflow-hidden shadow-sm h-11">
+                            <button onclick="decreaseQty(this)" class="w-12 h-full text-gray-500 hover:bg-gray-100 hover:text-brand-primary transition-colors font-bold text-xl border-r border-gray-100 flex items-center justify-center focus:outline-none">-</button>
+                            <input type="number" class="quantity-input flex-1 h-full text-center bg-transparent focus:outline-none font-bold text-brand-dark text-lg p-0 border-0" value="1" min="1" aria-label="Quantity">
+                            <button onclick="increaseQty(this)" class="w-12 h-full text-gray-500 hover:bg-gray-100 hover:text-brand-primary transition-colors font-bold text-xl border-l border-gray-100 flex items-center justify-center focus:outline-none">+</button>
                         </div>
                     </div>
                     
-                    <button onclick="addToCart(this)" class="order-btn block w-full py-3 bg-green-600 text-white rounded-xl text-center font-bold text-sm hover:bg-green-700 transition-all shadow-lg transform active:scale-95">Add to Cart</button>
+                    <button onclick="addToCart(this)" class="order-btn block w-full py-3.5 bg-green-600 text-white rounded-xl text-center font-bold text-sm hover:bg-green-700 transition-all shadow-lg transform active:scale-95">Add to Cart</button>
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Javas (Flaxseed) Laddu">
-                <div class="h-64 rounded-xl overflow-hidden relative mb-4">
+            <div class="bg-white rounded-2xl p-5 shadow-card product-card border border-gray-100 group flex flex-col h-full" data-name="Javas (Flaxseed) Laddu">
+                <div class="h-60 rounded-xl overflow-hidden relative mb-5">
                     <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-brand-dark z-10 shadow-sm">
                         <i class="fas fa-seedling text-green-600 mr-1"></i> Omega-3 Rich
                     </div>
                     <img src="https://www.spicingyourlife.com/wp-content/uploads/2016/04/FlaxseedLadoo.jpg" class="w-full h-full object-cover smooth-image" alt="Javas Laddu">
                 </div>
-                <div class="px-2">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-bold text-brand-dark product-title">Javas (Flaxseed) Laddu</h3>
-                        <span class="text-lg font-bold text-brand-primary">₹700/kg</span>
+                <div class="flex-1 flex flex-col">
+                    <div class="flex justify-between items-end mb-2">
+                        <div>
+                            <h3 class="text-xl font-bold text-brand-dark product-title leading-tight">Javas (Flaxseed) Laddu</h3>
+                            <div class="text-[11px] text-gray-400 font-bold uppercase tracking-wide mt-1">Rate: ₹700/kg</div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-2xl font-black text-green-600 display-price">₹175</span>
+                        </div>
                     </div>
-                    <p class="text-sm text-gray-500 mb-4 line-clamp-2">Flaxseed laddus rich in Omega-3, fiber, and antioxidants for heart health.</p>
+                    <p class="text-sm text-gray-500 mb-5 line-clamp-2 h-10">Flaxseed laddus rich in Omega-3, fiber, and antioxidants for heart health.</p>
                     
-                    <div class="flex gap-2 mb-4 items-center">
-                        <div class="relative flex-1">
-                            <select class="weight-select w-full appearance-none bg-gray-50 border border-gray-200 text-gray-700 py-2 px-3 pr-8 rounded-xl text-sm focus:outline-none focus:border-green-500 transition-all cursor-pointer">
-                                <option value="175" data-weight="250g" selected>250g (₹175)</option>
-                                <option value="350" data-weight="500g">500g (₹350)</option>
-                                <option value="700" data-weight="1kg">1kg (₹700)</option>
+                    <div class="mt-auto space-y-3 mb-4">
+                        <div class="relative w-full">
+                            <select class="weight-select w-full appearance-none bg-gray-50 border border-gray-200 text-brand-dark py-2.5 px-4 pr-10 rounded-xl text-sm font-bold focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all cursor-pointer" onchange="updateDisplayPrice(this)">
+                                <option value="175" data-weight="250g" selected>250g Pack</option>
+                                <option value="350" data-weight="500g">500g Pack</option>
+                                <option value="700" data-weight="1kg">1kg Pack</option>
                             </select>
-                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
-                                <i class="fas fa-chevron-down text-xs"></i>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-400">
+                                <i class="fas fa-chevron-down text-sm"></i>
                             </div>
                         </div>
-                        <div class="w-20">
-                            <input type="number" class="quantity-input w-full bg-gray-50 border border-gray-200 text-gray-700 py-2 px-2 rounded-xl text-sm text-center focus:outline-none focus:border-green-500 transition-all" value="1" min="1" aria-label="Quantity">
+
+                        <div class="flex items-center justify-between border border-gray-200 rounded-xl bg-white overflow-hidden shadow-sm h-11">
+                            <button onclick="decreaseQty(this)" class="w-12 h-full text-gray-500 hover:bg-gray-100 hover:text-brand-primary transition-colors font-bold text-xl border-r border-gray-100 flex items-center justify-center focus:outline-none">-</button>
+                            <input type="number" class="quantity-input flex-1 h-full text-center bg-transparent focus:outline-none font-bold text-brand-dark text-lg p-0 border-0" value="1" min="1" aria-label="Quantity">
+                            <button onclick="increaseQty(this)" class="w-12 h-full text-gray-500 hover:bg-gray-100 hover:text-brand-primary transition-colors font-bold text-xl border-l border-gray-100 flex items-center justify-center focus:outline-none">+</button>
                         </div>
                     </div>
                     
-                    <button onclick="addToCart(this)" class="order-btn block w-full py-3 bg-green-600 text-white rounded-xl text-center font-bold text-sm hover:bg-green-700 transition-all shadow-lg transform active:scale-95">Add to Cart</button>
+                    <button onclick="addToCart(this)" class="order-btn block w-full py-3.5 bg-green-600 text-white rounded-xl text-center font-bold text-sm hover:bg-green-700 transition-all shadow-lg transform active:scale-95">Add to Cart</button>
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Dry Fruits Dates Bites">
-                <div class="h-64 rounded-xl overflow-hidden relative mb-4">
+            <div class="bg-white rounded-2xl p-5 shadow-card product-card border border-gray-100 group flex flex-col h-full" data-name="Dry Fruits Dates Bites">
+                <div class="h-60 rounded-xl overflow-hidden relative mb-5">
                     <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-brand-dark z-10 shadow-sm">
                         <i class="fas fa-seedling text-green-600 mr-1"></i> Nutrients Rich
                     </div>
                     <img src="dates.jpeg" class="w-full h-full object-cover smooth-image" alt="Dry Fruits Dates Bites">
                 </div>
-                <div class="px-2">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-bold text-brand-dark product-title">Dry Fruits Dates Bites</h3>
-                        <span class="text-lg font-bold text-brand-primary">₹1000/kg</span>
+                <div class="flex-1 flex flex-col">
+                    <div class="flex justify-between items-end mb-2">
+                        <div>
+                            <h3 class="text-xl font-bold text-brand-dark product-title leading-tight">Dry Fruits Dates Bites</h3>
+                            <div class="text-[11px] text-gray-400 font-bold uppercase tracking-wide mt-1">Rate: ₹1000/kg</div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-2xl font-black text-green-600 display-price">₹250</span>
+                        </div>
                     </div>
-                    <p class="text-sm text-gray-500 mb-4 line-clamp-2">Boost energy, aid digestion, and support heart health with essential nutrients.</p>
+                    <p class="text-sm text-gray-500 mb-5 line-clamp-2 h-10">Boost energy, aid digestion, and support heart health with essential nutrients.</p>
                     
-                    <div class="flex gap-2 mb-4 items-center">
-                        <div class="relative flex-1">
-                            <select class="weight-select w-full appearance-none bg-gray-50 border border-gray-200 text-gray-700 py-2 px-3 pr-8 rounded-xl text-sm focus:outline-none focus:border-green-500 transition-all cursor-pointer">
-                                <option value="250" data-weight="250g" selected>250g (₹250)</option>
-                                <option value="500" data-weight="500g">500g (₹500)</option>
-                                <option value="1000" data-weight="1kg">1kg (₹1000)</option>
+                    <div class="mt-auto space-y-3 mb-4">
+                        <div class="relative w-full">
+                            <select class="weight-select w-full appearance-none bg-gray-50 border border-gray-200 text-brand-dark py-2.5 px-4 pr-10 rounded-xl text-sm font-bold focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all cursor-pointer" onchange="updateDisplayPrice(this)">
+                                <option value="250" data-weight="250g" selected>250g Pack</option>
+                                <option value="500" data-weight="500g">500g Pack</option>
+                                <option value="1000" data-weight="1kg">1kg Pack</option>
                             </select>
-                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
-                                <i class="fas fa-chevron-down text-xs"></i>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-400">
+                                <i class="fas fa-chevron-down text-sm"></i>
                             </div>
                         </div>
-                        <div class="w-20">
-                            <input type="number" class="quantity-input w-full bg-gray-50 border border-gray-200 text-gray-700 py-2 px-2 rounded-xl text-sm text-center focus:outline-none focus:border-green-500 transition-all" value="1" min="1" aria-label="Quantity">
+
+                        <div class="flex items-center justify-between border border-gray-200 rounded-xl bg-white overflow-hidden shadow-sm h-11">
+                            <button onclick="decreaseQty(this)" class="w-12 h-full text-gray-500 hover:bg-gray-100 hover:text-brand-primary transition-colors font-bold text-xl border-r border-gray-100 flex items-center justify-center focus:outline-none">-</button>
+                            <input type="number" class="quantity-input flex-1 h-full text-center bg-transparent focus:outline-none font-bold text-brand-dark text-lg p-0 border-0" value="1" min="1" aria-label="Quantity">
+                            <button onclick="increaseQty(this)" class="w-12 h-full text-gray-500 hover:bg-gray-100 hover:text-brand-primary transition-colors font-bold text-xl border-l border-gray-100 flex items-center justify-center focus:outline-none">+</button>
                         </div>
                     </div>
                     
-                    <button onclick="addToCart(this)" class="order-btn block w-full py-3 bg-green-600 text-white rounded-xl text-center font-bold text-sm hover:bg-green-700 transition-all shadow-lg transform active:scale-95">Add to Cart</button>
+                    <button onclick="addToCart(this)" class="order-btn block w-full py-3.5 bg-green-600 text-white rounded-xl text-center font-bold text-sm hover:bg-green-700 transition-all shadow-lg transform active:scale-95">Add to Cart</button>
                 </div>
             </div>
 
@@ -694,207 +802,255 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Nachani Chips">
-                <div class="h-64 rounded-xl overflow-hidden relative mb-4">
+            <div class="bg-white rounded-2xl p-5 shadow-card product-card border border-gray-100 group flex flex-col h-full" data-name="Nachani Chips">
+                <div class="h-60 rounded-xl overflow-hidden relative mb-5">
                     <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-brand-dark z-10 shadow-sm">
                         <i class="fas fa-leaf text-green-600 mr-1"></i> Calcium Rich
                     </div>
                     <img src="nachani.jpeg" class="w-full h-full object-cover smooth-image" alt="Nachani Chips">
                 </div>
-                <div class="px-2">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-bold text-brand-dark product-title">Nachani Chips</h3>
-                        <span class="text-lg font-bold text-brand-primary">₹550/kg</span>
+                <div class="flex-1 flex flex-col">
+                    <div class="flex justify-between items-end mb-2">
+                        <div>
+                            <h3 class="text-xl font-bold text-brand-dark product-title leading-tight">Nachani Chips</h3>
+                            <div class="text-[11px] text-gray-400 font-bold uppercase tracking-wide mt-1">Rate: ₹550/kg</div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-2xl font-black text-green-600 display-price">₹138</span>
+                        </div>
                     </div>
-                    <p class="text-sm text-gray-500 mb-4 line-clamp-2">Crispy Ragi chips seasoned with mild spices. High in calcium and fiber.</p>
+                    <p class="text-sm text-gray-500 mb-5 line-clamp-2 h-10">Crispy Ragi chips seasoned with mild spices. High in calcium and fiber.</p>
                     
-                    <div class="flex gap-2 mb-4 items-center">
-                        <div class="relative flex-1">
-                            <select class="weight-select w-full appearance-none bg-gray-50 border border-gray-200 text-gray-700 py-2 px-3 pr-8 rounded-xl text-sm focus:outline-none focus:border-green-500 transition-all cursor-pointer">
-                                <option value="138" data-weight="250g" selected>250g (₹138)</option>
-                                <option value="275" data-weight="500g">500g (₹275)</option>
-                                <option value="550" data-weight="1kg">1kg (₹550)</option>
+                    <div class="mt-auto space-y-3 mb-4">
+                        <div class="relative w-full">
+                            <select class="weight-select w-full appearance-none bg-gray-50 border border-gray-200 text-brand-dark py-2.5 px-4 pr-10 rounded-xl text-sm font-bold focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all cursor-pointer" onchange="updateDisplayPrice(this)">
+                                <option value="138" data-weight="250g" selected>250g Pack</option>
+                                <option value="275" data-weight="500g">500g Pack</option>
+                                <option value="550" data-weight="1kg">1kg Pack</option>
                             </select>
-                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
-                                <i class="fas fa-chevron-down text-xs"></i>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-400">
+                                <i class="fas fa-chevron-down text-sm"></i>
                             </div>
                         </div>
-                        <div class="w-20">
-                            <input type="number" class="quantity-input w-full bg-gray-50 border border-gray-200 text-gray-700 py-2 px-2 rounded-xl text-sm text-center focus:outline-none focus:border-green-500 transition-all" value="1" min="1" aria-label="Quantity">
+
+                        <div class="flex items-center justify-between border border-gray-200 rounded-xl bg-white overflow-hidden shadow-sm h-11">
+                            <button onclick="decreaseQty(this)" class="w-12 h-full text-gray-500 hover:bg-gray-100 hover:text-brand-primary transition-colors font-bold text-xl border-r border-gray-100 flex items-center justify-center focus:outline-none">-</button>
+                            <input type="number" class="quantity-input flex-1 h-full text-center bg-transparent focus:outline-none font-bold text-brand-dark text-lg p-0 border-0" value="1" min="1" aria-label="Quantity">
+                            <button onclick="increaseQty(this)" class="w-12 h-full text-gray-500 hover:bg-gray-100 hover:text-brand-primary transition-colors font-bold text-xl border-l border-gray-100 flex items-center justify-center focus:outline-none">+</button>
                         </div>
                     </div>
                     
-                    <button onclick="addToCart(this)" class="order-btn block w-full py-3 bg-green-600 text-white rounded-xl text-center font-bold text-sm hover:bg-green-700 transition-all shadow-lg transform active:scale-95">Add to Cart</button>
+                    <button onclick="addToCart(this)" class="order-btn block w-full py-3.5 bg-green-600 text-white rounded-xl text-center font-bold text-sm hover:bg-green-700 transition-all shadow-lg transform active:scale-95">Add to Cart</button>
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Soya Chips">
-                <div class="h-64 rounded-xl overflow-hidden relative mb-4">
+            <div class="bg-white rounded-2xl p-5 shadow-card product-card border border-gray-100 group flex flex-col h-full" data-name="Soya Chips">
+                <div class="h-60 rounded-xl overflow-hidden relative mb-5">
                     <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-brand-dark z-10 shadow-sm">
                         <i class="fas fa-dumbbell text-brand-secondary mr-1"></i> Protein Rich
                     </div>
                     <img src="soya.jpeg" class="w-full h-full object-cover smooth-image" alt="Soya Chips">
                 </div>
-                <div class="px-2">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-bold text-brand-dark product-title">Soya Chips</h3>
-                        <span class="text-lg font-bold text-brand-primary">₹550/kg</span>
+                <div class="flex-1 flex flex-col">
+                    <div class="flex justify-between items-end mb-2">
+                        <div>
+                            <h3 class="text-xl font-bold text-brand-dark product-title leading-tight">Soya Chips</h3>
+                            <div class="text-[11px] text-gray-400 font-bold uppercase tracking-wide mt-1">Rate: ₹550/kg</div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-2xl font-black text-green-600 display-price">₹138</span>
+                        </div>
                     </div>
-                    <p class="text-sm text-gray-500 mb-4 line-clamp-2">Crunchy soya sticks that satisfy your cravings while adding protein to your diet.</p>
+                    <p class="text-sm text-gray-500 mb-5 line-clamp-2 h-10">Crunchy soya sticks that satisfy your cravings while adding protein to your diet.</p>
                     
-                    <div class="flex gap-2 mb-4 items-center">
-                        <div class="relative flex-1">
-                            <select class="weight-select w-full appearance-none bg-gray-50 border border-gray-200 text-gray-700 py-2 px-3 pr-8 rounded-xl text-sm focus:outline-none focus:border-green-500 transition-all cursor-pointer">
-                                <option value="138" data-weight="250g" selected>250g (₹138)</option>
-                                <option value="275" data-weight="500g">500g (₹275)</option>
-                                <option value="550" data-weight="1kg">1kg (₹550)</option>
+                    <div class="mt-auto space-y-3 mb-4">
+                        <div class="relative w-full">
+                            <select class="weight-select w-full appearance-none bg-gray-50 border border-gray-200 text-brand-dark py-2.5 px-4 pr-10 rounded-xl text-sm font-bold focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all cursor-pointer" onchange="updateDisplayPrice(this)">
+                                <option value="138" data-weight="250g" selected>250g Pack</option>
+                                <option value="275" data-weight="500g">500g Pack</option>
+                                <option value="550" data-weight="1kg">1kg Pack</option>
                             </select>
-                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
-                                <i class="fas fa-chevron-down text-xs"></i>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-400">
+                                <i class="fas fa-chevron-down text-sm"></i>
                             </div>
                         </div>
-                        <div class="w-20">
-                            <input type="number" class="quantity-input w-full bg-gray-50 border border-gray-200 text-gray-700 py-2 px-2 rounded-xl text-sm text-center focus:outline-none focus:border-green-500 transition-all" value="1" min="1" aria-label="Quantity">
+
+                        <div class="flex items-center justify-between border border-gray-200 rounded-xl bg-white overflow-hidden shadow-sm h-11">
+                            <button onclick="decreaseQty(this)" class="w-12 h-full text-gray-500 hover:bg-gray-100 hover:text-brand-primary transition-colors font-bold text-xl border-r border-gray-100 flex items-center justify-center focus:outline-none">-</button>
+                            <input type="number" class="quantity-input flex-1 h-full text-center bg-transparent focus:outline-none font-bold text-brand-dark text-lg p-0 border-0" value="1" min="1" aria-label="Quantity">
+                            <button onclick="increaseQty(this)" class="w-12 h-full text-gray-500 hover:bg-gray-100 hover:text-brand-primary transition-colors font-bold text-xl border-l border-gray-100 flex items-center justify-center focus:outline-none">+</button>
                         </div>
                     </div>
                     
-                    <button onclick="addToCart(this)" class="order-btn block w-full py-3 bg-green-600 text-white rounded-xl text-center font-bold text-sm hover:bg-green-700 transition-all shadow-lg transform active:scale-95">Add to Cart</button>
+                    <button onclick="addToCart(this)" class="order-btn block w-full py-3.5 bg-green-600 text-white rounded-xl text-center font-bold text-sm hover:bg-green-700 transition-all shadow-lg transform active:scale-95">Add to Cart</button>
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Palak Chips">
-                <div class="h-64 rounded-xl overflow-hidden relative mb-4">
+            <div class="bg-white rounded-2xl p-5 shadow-card product-card border border-gray-100 group flex flex-col h-full" data-name="Palak Chips">
+                <div class="h-60 rounded-xl overflow-hidden relative mb-5">
                     <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-brand-dark z-10 shadow-sm">
                         <i class="fas fa-tint text-green-500 mr-1"></i> Iron Boost
                     </div>
                     <img src="palak.jpeg" class="w-full h-full object-cover smooth-image" alt="Palak Chips">
                 </div>
-                <div class="px-2">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-bold text-brand-dark product-title">Palak Chips</h3>
-                        <span class="text-lg font-bold text-brand-primary">₹500/kg</span>
+                <div class="flex-1 flex flex-col">
+                    <div class="flex justify-between items-end mb-2">
+                        <div>
+                            <h3 class="text-xl font-bold text-brand-dark product-title leading-tight">Palak Chips</h3>
+                            <div class="text-[11px] text-gray-400 font-bold uppercase tracking-wide mt-1">Rate: ₹500/kg</div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-2xl font-black text-green-600 display-price">₹125</span>
+                        </div>
                     </div>
-                    <p class="text-sm text-gray-500 mb-4 line-clamp-2">Wholesome Spinach chips baked to perfection. A hit with kids and adults alike.</p>
+                    <p class="text-sm text-gray-500 mb-5 line-clamp-2 h-10">Wholesome Spinach chips baked to perfection. A hit with kids and adults alike.</p>
                     
-                    <div class="flex gap-2 mb-4 items-center">
-                        <div class="relative flex-1">
-                            <select class="weight-select w-full appearance-none bg-gray-50 border border-gray-200 text-gray-700 py-2 px-3 pr-8 rounded-xl text-sm focus:outline-none focus:border-green-500 transition-all cursor-pointer">
-                                <option value="125" data-weight="250g" selected>250g (₹125)</option>
-                                <option value="250" data-weight="500g">500g (₹250)</option>
-                                <option value="500" data-weight="1kg">1kg (₹500)</option>
+                    <div class="mt-auto space-y-3 mb-4">
+                        <div class="relative w-full">
+                            <select class="weight-select w-full appearance-none bg-gray-50 border border-gray-200 text-brand-dark py-2.5 px-4 pr-10 rounded-xl text-sm font-bold focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all cursor-pointer" onchange="updateDisplayPrice(this)">
+                                <option value="125" data-weight="250g" selected>250g Pack</option>
+                                <option value="250" data-weight="500g">500g Pack</option>
+                                <option value="500" data-weight="1kg">1kg Pack</option>
                             </select>
-                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
-                                <i class="fas fa-chevron-down text-xs"></i>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-400">
+                                <i class="fas fa-chevron-down text-sm"></i>
                             </div>
                         </div>
-                        <div class="w-20">
-                            <input type="number" class="quantity-input w-full bg-gray-50 border border-gray-200 text-gray-700 py-2 px-2 rounded-xl text-sm text-center focus:outline-none focus:border-green-500 transition-all" value="1" min="1" aria-label="Quantity">
+
+                        <div class="flex items-center justify-between border border-gray-200 rounded-xl bg-white overflow-hidden shadow-sm h-11">
+                            <button onclick="decreaseQty(this)" class="w-12 h-full text-gray-500 hover:bg-gray-100 hover:text-brand-primary transition-colors font-bold text-xl border-r border-gray-100 flex items-center justify-center focus:outline-none">-</button>
+                            <input type="number" class="quantity-input flex-1 h-full text-center bg-transparent focus:outline-none font-bold text-brand-dark text-lg p-0 border-0" value="1" min="1" aria-label="Quantity">
+                            <button onclick="increaseQty(this)" class="w-12 h-full text-gray-500 hover:bg-gray-100 hover:text-brand-primary transition-colors font-bold text-xl border-l border-gray-100 flex items-center justify-center focus:outline-none">+</button>
                         </div>
                     </div>
                     
-                    <button onclick="addToCart(this)" class="order-btn block w-full py-3 bg-green-600 text-white rounded-xl text-center font-bold text-sm hover:bg-green-700 transition-all shadow-lg transform active:scale-95">Add to Cart</button>
+                    <button onclick="addToCart(this)" class="order-btn block w-full py-3.5 bg-green-600 text-white rounded-xl text-center font-bold text-sm hover:bg-green-700 transition-all shadow-lg transform active:scale-95">Add to Cart</button>
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Namkin Pare">
-                <div class="h-64 rounded-xl overflow-hidden relative mb-4">
+            <div class="bg-white rounded-2xl p-5 shadow-card product-card border border-gray-100 group flex flex-col h-full" data-name="Namkin Pare">
+                <div class="h-60 rounded-xl overflow-hidden relative mb-5">
                     <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-brand-dark z-10 shadow-sm">
                         <i class="fas fa-mug-hot text-amber-700 mr-1"></i> Tea-Time Partner
                     </div>
                     <img src="namak.jpeg" class="w-full h-full object-cover smooth-image" alt="Namkin Pare">
                 </div>
-                <div class="px-2">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-bold text-brand-dark product-title">Namkin Pare</h3>
-                        <span class="text-lg font-bold text-brand-primary">₹400/kg</span>
+                <div class="flex-1 flex flex-col">
+                    <div class="flex justify-between items-end mb-2">
+                        <div>
+                            <h3 class="text-xl font-bold text-brand-dark product-title leading-tight">Namkin Pare</h3>
+                            <div class="text-[11px] text-gray-400 font-bold uppercase tracking-wide mt-1">Rate: ₹400/kg</div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-2xl font-black text-green-600 display-price">₹100</span>
+                        </div>
                     </div>
-                    <p class="text-sm text-gray-500 mb-4 line-clamp-2">Traditional savory bites made with whole wheat flour and cumin seeds.</p>
+                    <p class="text-sm text-gray-500 mb-5 line-clamp-2 h-10">Traditional savory bites made with whole wheat flour and cumin seeds.</p>
                     
-                    <div class="flex gap-2 mb-4 items-center">
-                        <div class="relative flex-1">
-                            <select class="weight-select w-full appearance-none bg-gray-50 border border-gray-200 text-gray-700 py-2 px-3 pr-8 rounded-xl text-sm focus:outline-none focus:border-green-500 transition-all cursor-pointer">
-                                <option value="100" data-weight="250g" selected>250g (₹100)</option>
-                                <option value="200" data-weight="500g">500g (₹200)</option>
-                                <option value="400" data-weight="1kg">1kg (₹400)</option>
+                    <div class="mt-auto space-y-3 mb-4">
+                        <div class="relative w-full">
+                            <select class="weight-select w-full appearance-none bg-gray-50 border border-gray-200 text-brand-dark py-2.5 px-4 pr-10 rounded-xl text-sm font-bold focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all cursor-pointer" onchange="updateDisplayPrice(this)">
+                                <option value="100" data-weight="250g" selected>250g Pack</option>
+                                <option value="200" data-weight="500g">500g Pack</option>
+                                <option value="400" data-weight="1kg">1kg Pack</option>
                             </select>
-                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
-                                <i class="fas fa-chevron-down text-xs"></i>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-400">
+                                <i class="fas fa-chevron-down text-sm"></i>
                             </div>
                         </div>
-                        <div class="w-20">
-                            <input type="number" class="quantity-input w-full bg-gray-50 border border-gray-200 text-gray-700 py-2 px-2 rounded-xl text-sm text-center focus:outline-none focus:border-green-500 transition-all" value="1" min="1" aria-label="Quantity">
+
+                        <div class="flex items-center justify-between border border-gray-200 rounded-xl bg-white overflow-hidden shadow-sm h-11">
+                            <button onclick="decreaseQty(this)" class="w-12 h-full text-gray-500 hover:bg-gray-100 hover:text-brand-primary transition-colors font-bold text-xl border-r border-gray-100 flex items-center justify-center focus:outline-none">-</button>
+                            <input type="number" class="quantity-input flex-1 h-full text-center bg-transparent focus:outline-none font-bold text-brand-dark text-lg p-0 border-0" value="1" min="1" aria-label="Quantity">
+                            <button onclick="increaseQty(this)" class="w-12 h-full text-gray-500 hover:bg-gray-100 hover:text-brand-primary transition-colors font-bold text-xl border-l border-gray-100 flex items-center justify-center focus:outline-none">+</button>
                         </div>
                     </div>
                     
-                    <button onclick="addToCart(this)" class="order-btn block w-full py-3 bg-green-600 text-white rounded-xl text-center font-bold text-sm hover:bg-green-700 transition-all shadow-lg transform active:scale-95">Add to Cart</button>
+                    <button onclick="addToCart(this)" class="order-btn block w-full py-3.5 bg-green-600 text-white rounded-xl text-center font-bold text-sm hover:bg-green-700 transition-all shadow-lg transform active:scale-95">Add to Cart</button>
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Beetroot Chips">
-                <div class="h-64 rounded-xl overflow-hidden relative mb-4">
+            <div class="bg-white rounded-2xl p-5 shadow-card product-card border border-gray-100 group flex flex-col h-full" data-name="Beetroot Chips">
+                <div class="h-60 rounded-xl overflow-hidden relative mb-5">
                     <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-brand-dark z-10 shadow-sm">
                         <i class="fas fa-vial text-red-600 mr-1"></i> Antioxidant Rich
                     </div>
                     <img src="beet.jpeg" class="w-full h-full object-cover smooth-image" alt="Beetroot Chips">
                 </div>
-                <div class="px-2">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-bold text-brand-dark product-title">Beetroot Chips</h3>
-                        <span class="text-lg font-bold text-brand-primary">₹500/kg</span>
+                <div class="flex-1 flex flex-col">
+                    <div class="flex justify-between items-end mb-2">
+                        <div>
+                            <h3 class="text-xl font-bold text-brand-dark product-title leading-tight">Beetroot Chips</h3>
+                            <div class="text-[11px] text-gray-400 font-bold uppercase tracking-wide mt-1">Rate: ₹500/kg</div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-2xl font-black text-green-600 display-price">₹125</span>
+                        </div>
                     </div>
-                    <p class="text-sm text-gray-500 mb-4 line-clamp-2">Vibrant and nutrient-dense beetroot crisps. Low in calories, high in taste.</p>
+                    <p class="text-sm text-gray-500 mb-5 line-clamp-2 h-10">Vibrant and nutrient-dense beetroot crisps. Low in calories, high in taste.</p>
                     
-                    <div class="flex gap-2 mb-4 items-center">
-                        <div class="relative flex-1">
-                            <select class="weight-select w-full appearance-none bg-gray-50 border border-gray-200 text-gray-700 py-2 px-3 pr-8 rounded-xl text-sm focus:outline-none focus:border-green-500 transition-all cursor-pointer">
-                                <option value="125" data-weight="250g" selected>250g (₹125)</option>
-                                <option value="250" data-weight="500g">500g (₹250)</option>
-                                <option value="500" data-weight="1kg">1kg (₹500)</option>
+                    <div class="mt-auto space-y-3 mb-4">
+                        <div class="relative w-full">
+                            <select class="weight-select w-full appearance-none bg-gray-50 border border-gray-200 text-brand-dark py-2.5 px-4 pr-10 rounded-xl text-sm font-bold focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all cursor-pointer" onchange="updateDisplayPrice(this)">
+                                <option value="125" data-weight="250g" selected>250g Pack</option>
+                                <option value="250" data-weight="500g">500g Pack</option>
+                                <option value="500" data-weight="1kg">1kg Pack</option>
                             </select>
-                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
-                                <i class="fas fa-chevron-down text-xs"></i>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-400">
+                                <i class="fas fa-chevron-down text-sm"></i>
                             </div>
                         </div>
-                        <div class="w-20">
-                            <input type="number" class="quantity-input w-full bg-gray-50 border border-gray-200 text-gray-700 py-2 px-2 rounded-xl text-sm text-center focus:outline-none focus:border-green-500 transition-all" value="1" min="1" aria-label="Quantity">
+
+                        <div class="flex items-center justify-between border border-gray-200 rounded-xl bg-white overflow-hidden shadow-sm h-11">
+                            <button onclick="decreaseQty(this)" class="w-12 h-full text-gray-500 hover:bg-gray-100 hover:text-brand-primary transition-colors font-bold text-xl border-r border-gray-100 flex items-center justify-center focus:outline-none">-</button>
+                            <input type="number" class="quantity-input flex-1 h-full text-center bg-transparent focus:outline-none font-bold text-brand-dark text-lg p-0 border-0" value="1" min="1" aria-label="Quantity">
+                            <button onclick="increaseQty(this)" class="w-12 h-full text-gray-500 hover:bg-gray-100 hover:text-brand-primary transition-colors font-bold text-xl border-l border-gray-100 flex items-center justify-center focus:outline-none">+</button>
                         </div>
                     </div>
                     
-                    <button onclick="addToCart(this)" class="order-btn block w-full py-3 bg-green-600 text-white rounded-xl text-center font-bold text-sm hover:bg-green-700 transition-all shadow-lg transform active:scale-95">Add to Cart</button>
+                    <button onclick="addToCart(this)" class="order-btn block w-full py-3.5 bg-green-600 text-white rounded-xl text-center font-bold text-sm hover:bg-green-700 transition-all shadow-lg transform active:scale-95">Add to Cart</button>
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-4 shadow-card product-card border border-gray-100 group" data-name="Diet Chiwda">
-                <div class="h-64 rounded-xl overflow-hidden relative mb-4">
+            <div class="bg-white rounded-2xl p-5 shadow-card product-card border border-gray-100 group flex flex-col h-full" data-name="Diet Chiwda">
+                <div class="h-60 rounded-xl overflow-hidden relative mb-5">
                     <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-brand-dark z-10 shadow-sm">
                         <i class="fas fa-weight text-blue-500 mr-1"></i> Weight Management
                     </div>
                     <img src="chiwda.jpeg" class="w-full h-full object-cover smooth-image" alt="Diet Chiwda">
                 </div>
-                <div class="px-2">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-bold text-brand-dark product-title">Diet Chiwda</h3>
-                        <span class="text-lg font-bold text-brand-primary">₹500/kg</span>
+                <div class="flex-1 flex flex-col">
+                    <div class="flex justify-between items-end mb-2">
+                        <div>
+                            <h3 class="text-xl font-bold text-brand-dark product-title leading-tight">Diet Chiwda</h3>
+                            <div class="text-[11px] text-gray-400 font-bold uppercase tracking-wide mt-1">Rate: ₹500/kg</div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-2xl font-black text-green-600 display-price">₹125</span>
+                        </div>
                     </div>
-                    <p class="text-sm text-gray-500 mb-4 line-clamp-2">Roasted Poha mixed with dry fruits and curry leaves. Zero oil snacking.</p>
+                    <p class="text-sm text-gray-500 mb-5 line-clamp-2 h-10">Roasted Poha mixed with dry fruits and curry leaves. Zero oil snacking.</p>
                     
-                    <div class="flex gap-2 mb-4 items-center">
-                        <div class="relative flex-1">
-                            <select class="weight-select w-full appearance-none bg-gray-50 border border-gray-200 text-gray-700 py-2 px-3 pr-8 rounded-xl text-sm focus:outline-none focus:border-green-500 transition-all cursor-pointer">
-                                <option value="125" data-weight="250g" selected>250g (₹125)</option>
-                                <option value="250" data-weight="500g">500g (₹250)</option>
-                                <option value="500" data-weight="1kg">1kg (₹500)</option>
+                    <div class="mt-auto space-y-3 mb-4">
+                        <div class="relative w-full">
+                            <select class="weight-select w-full appearance-none bg-gray-50 border border-gray-200 text-brand-dark py-2.5 px-4 pr-10 rounded-xl text-sm font-bold focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all cursor-pointer" onchange="updateDisplayPrice(this)">
+                                <option value="125" data-weight="250g" selected>250g Pack</option>
+                                <option value="250" data-weight="500g">500g Pack</option>
+                                <option value="500" data-weight="1kg">1kg Pack</option>
                             </select>
-                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
-                                <i class="fas fa-chevron-down text-xs"></i>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-400">
+                                <i class="fas fa-chevron-down text-sm"></i>
                             </div>
                         </div>
-                        <div class="w-20">
-                            <input type="number" class="quantity-input w-full bg-gray-50 border border-gray-200 text-gray-700 py-2 px-2 rounded-xl text-sm text-center focus:outline-none focus:border-green-500 transition-all" value="1" min="1" aria-label="Quantity">
+
+                        <div class="flex items-center justify-between border border-gray-200 rounded-xl bg-white overflow-hidden shadow-sm h-11">
+                            <button onclick="decreaseQty(this)" class="w-12 h-full text-gray-500 hover:bg-gray-100 hover:text-brand-primary transition-colors font-bold text-xl border-r border-gray-100 flex items-center justify-center focus:outline-none">-</button>
+                            <input type="number" class="quantity-input flex-1 h-full text-center bg-transparent focus:outline-none font-bold text-brand-dark text-lg p-0 border-0" value="1" min="1" aria-label="Quantity">
+                            <button onclick="increaseQty(this)" class="w-12 h-full text-gray-500 hover:bg-gray-100 hover:text-brand-primary transition-colors font-bold text-xl border-l border-gray-100 flex items-center justify-center focus:outline-none">+</button>
                         </div>
                     </div>
                     
-                    <button onclick="addToCart(this)" class="order-btn block w-full py-3 bg-green-600 text-white rounded-xl text-center font-bold text-sm hover:bg-green-700 transition-all shadow-lg transform active:scale-95">Add to Cart</button>
+                    <button onclick="addToCart(this)" class="order-btn block w-full py-3.5 bg-green-600 text-white rounded-xl text-center font-bold text-sm hover:bg-green-700 transition-all shadow-lg transform active:scale-95">Add to Cart</button>
                 </div>
             </div>
 
@@ -989,6 +1145,56 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             
             <div class="flex justify-center gap-2 mt-4 md:hidden">
                 <span class="text-xs text-gray-500">← Swipe to see more reviews →</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="partner-reviews" class="py-20 bg-gray-900 relative overflow-hidden border-t-4 border-green-600">
+        <div class="absolute top-0 left-0 w-full h-full opacity-[0.03] bg-[url('patter.jpeg')] mix-blend-screen"></div>
+        
+        <div class="container mx-auto px-6 max-w-6xl relative z-10">
+            <div class="text-center mb-16">
+                <span class="text-amber-400 font-bold tracking-widest text-xs uppercase mb-2 block">B2B Partners</span>
+                <h2 class="text-4xl md:text-5xl font-bold text-white">What Shop Owners Say 🤝</h2>
+                <div class="w-20 h-1 bg-green-500 mx-auto rounded-full mt-6"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-gray-800/80 backdrop-blur-md p-8 rounded-[2rem] border border-gray-700 shadow-2xl relative transform hover:-translate-y-2 transition-transform duration-400">
+                    <i class="fas fa-quote-left absolute top-8 left-8 text-6xl text-gray-700/50"></i>
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-5 mb-8 border-b border-gray-700/80 pb-6">
+                            <div class="w-16 h-16 bg-amber-500 rounded-2xl flex items-center justify-center text-gray-900 font-bold text-2xl shadow-lg rotate-3">
+                                <i class="fas fa-store"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-2xl text-white tracking-wide">Satnam Dryfruits</h4>
+                                <p class="text-sm text-amber-400 font-semibold uppercase tracking-wider mt-1">Shop Owner</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-300 leading-relaxed text-lg italic">
+                            "I'm loving the partnership with Healthy Bites! Their products are a hit with my customers - healthy, tasty, and consistently delicious. It's a no-brainer why we get repeat business 😊. If you're a shop owner looking to level up your snack game, Healthy Bites is the way to go!"
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800/80 backdrop-blur-md p-8 rounded-[2rem] border border-gray-700 shadow-2xl relative transform hover:-translate-y-2 transition-transform duration-400">
+                    <i class="fas fa-quote-left absolute top-8 left-8 text-6xl text-gray-700/50"></i>
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-5 mb-8 border-b border-gray-700/80 pb-6">
+                            <div class="w-16 h-16 bg-green-500 rounded-2xl flex items-center justify-center text-gray-900 font-bold text-2xl shadow-lg -rotate-3">
+                                <i class="fas fa-store"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-2xl text-white tracking-wide">Kheteshwar Dryfruits</h4>
+                                <p class="text-sm text-green-400 font-semibold uppercase tracking-wider mt-1">Shop Owner</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-300 leading-relaxed text-lg italic">
+                            "We highly recommend Healthy Bites for their premium Dryfruits bites, which are rich in dryfruits and exceptionally flavorful. Our customers consistently appreciate the quality, making them a staple in our offerings."
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1147,6 +1353,31 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <script>
         // Store our cart items
         let cart = [];
+
+        // NEW: E-Commerce Quantity Increment/Decrement functions
+        function increaseQty(btn) {
+            const input = btn.previousElementSibling;
+            let val = parseInt(input.value);
+            if (isNaN(val)) val = 0;
+            input.value = val + 1;
+        }
+
+        function decreaseQty(btn) {
+            const input = btn.nextElementSibling;
+            let val = parseInt(input.value);
+            if (isNaN(val) || val <= 1) {
+                input.value = 1;
+            } else {
+                input.value = val - 1;
+            }
+        }
+
+        // NEW: Update Display Price when Weight Dropdown Changes
+        function updateDisplayPrice(selectElement) {
+            const card = selectElement.closest('.product-card');
+            const priceDisplay = card.querySelector('.display-price');
+            priceDisplay.innerText = '₹' + selectElement.value;
+        }
 
         function addToCart(btn) {
             // Find parent product card
