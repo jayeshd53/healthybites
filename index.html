@@ -1380,7 +1380,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             </div>
 
             <div class="text-center mt-12 text-gray-400 text-sm">
-                &copy; 2026 Healthy Bites. Handcrafted in Pune. Designed By Oad Digital.
+                &copy; 2025 Healthy Bites. Handcrafted in Pune. Designed By Oad Digital.
             </div>
         </div>
     </section>
@@ -1433,7 +1433,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 </div>
 
                 <button onclick="checkoutWhatsApp()" class="w-full bg-green-600 text-white font-bold py-4 rounded-xl shadow-lg hover:bg-green-700 transition-all flex justify-center items-center gap-2 transform active:scale-95">
-                    Order via WhatsApp <i class="fab fa-whatsapp text-xl"></i>
+                    Place Order
                 </button>
             </div>
         </div>
@@ -1621,31 +1621,66 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 return;
             }
 
-            let message = "Hello Healthy Bites! 👋\nI would like to place an order:\n\n";
+            // Build items string and subtotal
+            let itemsStr = "";
             let subtotal = 0;
-
             cart.forEach((item, index) => {
                 const itemTotal = item.price * item.quantity;
-                message += `▪️ *${item.name}*\n  ${item.weight} x ${item.quantity} = ₹${itemTotal}\n\n`;
+                itemsStr += `${item.name} (${item.weight}) x${item.quantity} = ₹${itemTotal}`;
+                if (index < cart.length - 1) itemsStr += " | ";
                 subtotal += itemTotal;
             });
 
+            // ----- Send order data to Google Sheet -----
+            const googleScriptURL = "https://script.google.com/macros/s/AKfycbzeeaW6xX2jy-Up1VC2bZFLNFdHlmA35L9aQP3LSf7g5nYvU4NWrZx3vLqMUHCau0hRUg/exec";
+            
+            const orderData = {
+                name: customerName,
+                mobile: customerMobile,
+                address: customerAddress,
+                items: itemsStr,
+                subtotal: "₹" + subtotal
+            };
+
+            // We'll use fetch with no-cors to avoid CORS issues.
+            fetch(googleScriptURL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(orderData)
+            }).then(() => {
+                console.log("Order sent to sheet successfully.");
+            }).catch(err => {
+                console.error("Error sending to sheet:", err);
+            });
+
+            // ----- Then open WhatsApp with the order message -----
+            let message = "Hello Healthy Bites! 👋\nI would like to place an order:\n\n";
+            cart.forEach((item) => {
+                const itemTotal = item.price * item.quantity;
+                message += `▪️ *${item.name}*\n  ${item.weight} x ${item.quantity} = ₹${itemTotal}\n\n`;
+            });
             message += `━━━━━━━━━━━━━━\n`;
             message += `*Subtotal: ₹${subtotal}*\n`;
             message += `*Final Total: ₹${subtotal}*\n`;
             message += `━━━━━━━━━━━━━━\n\n`;
-            
             message += `📍 *Delivery Details:*\n`;
             message += `*Name:* ${customerName}\n`;
             message += `*Mobile:* ${customerMobile}\n`;
             message += `*Address:* ${customerAddress}\n\n`;
-            
             message += `Please let me know how to proceed with payment.`;
 
-            const phoneNumber = '918788514695'; 
+            const phoneNumber = '918788514695';
             const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-            
             window.open(url, '_blank');
+
+            // Clear cart and close sidebar after checkout
+            cart = [];
+            updateCartUI();
+            document.getElementById('customer-name').value = '';
+            document.getElementById('customer-mobile').value = '';
+            document.getElementById('customer-address').value = '';
+            toggleCart();
         }
     </script>
 </body>
