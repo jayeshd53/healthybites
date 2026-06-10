@@ -162,16 +162,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     <p class="text-xl text-gray-600 leading-relaxed max-w-lg mx-auto md:mx-0">
                         Indulge in authentic Pune delicacies handcrafted with dates, jaggery, and premium nuts. Zero refined sugar, 100% guilt-free.
                     </p>
-
-                    <div class="inline-flex items-center gap-4 px-5 py-3 bg-green-50 border border-green-200 rounded-2xl shadow-sm mt-2 text-left">
-                        <div class="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center text-white shrink-0">
-                            <i class="fas fa-gift"></i>
-                        </div>
-                        <div>
-                            <p class="text-sm text-green-800">Get <strong>10% OFF</strong> on all Laddus!</p>
-                            <p class="text-sm text-green-800">Use code: <strong class="bg-white px-2 py-0.5 rounded shadow-sm border border-green-200 font-black tracking-wider ml-1 select-all">LADDU10</strong></p>
-                        </div>
-                    </div>
                     
                     <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                         <a href="#menu" class="bg-green-600 px-8 py-4 bg-brand-primary text-white rounded-full font-bold shadow-lg hover:bg-orange-600 hover:shadow-xl transition-all flex items-center justify-center gap-2">
@@ -1430,29 +1420,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                         </div>
                     </div>
                 </div>
-                <div class="mb-4 border-t border-gray-100 pt-4">
-                    <div class="flex justify-between items-center mb-2">
-                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider">Promo Code</label>
-                        <button onclick="document.getElementById('coupon-code').value='LADDU10'; applyCoupon();" class="text-[11px] bg-green-50 hover:bg-green-100 text-green-700 px-2 py-1 rounded font-bold transition-colors border border-green-200 cursor-pointer">
-                            Tap to use: LADDU10
-                        </button>
-                    </div>
-                    
-                    <div class="flex gap-2">
-                        <input type="text" id="coupon-code" placeholder="Enter Code" class="w-full text-sm bg-gray-50 border border-gray-200 rounded-lg px-3 py-2.5 focus:outline-none focus:border-green-500 focus:bg-white transition-all uppercase font-bold text-gray-700">
-                        <button onclick="applyCoupon()" class="bg-gray-800 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-gray-700 transition-all">Apply</button>
-                    </div>
-                    <p id="coupon-message" class="text-xs font-bold mt-2 hidden"></p>
-                </div>
 
                 <div class="space-y-2 mb-6">
                     <div class="flex justify-between items-center text-gray-500">
                         <span class="text-sm font-bold">Subtotal:</span>
                         <span id="cart-subtotal" class="font-bold">₹0</span>
-                    </div>
-                    <div id="discount-row" class="flex justify-between items-center text-green-600 hidden">
-                        <span class="text-sm font-bold">Discount (10% OFF on Laddus):</span>
-                        <span id="cart-discount" class="font-bold">-₹0</span>
                     </div>
                     <div class="flex justify-between items-center pt-2 border-t border-gray-100">
                         <span class="text-lg font-bold text-gray-800">Total Bill:</span>
@@ -1469,7 +1441,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <script>
         let cart = [];
-        let isCouponApplied = false;
 
         // JS Function to handle toggling Delivery Details
         function toggleCustomerDetails() {
@@ -1556,31 +1527,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             }
         }
 
-        // Apply Coupon Function
-        function applyCoupon() {
-            const codeInput = document.getElementById('coupon-code');
-            const message = document.getElementById('coupon-message');
-            const code = codeInput.value.trim().toUpperCase();
-
-            if (code === 'LADDU10') {
-                isCouponApplied = true;
-                message.textContent = 'Coupon applied successfully! 10% OFF on Laddus';
-                message.className = 'text-xs font-bold mt-2 text-green-600 block';
-            } else {
-                isCouponApplied = false;
-                message.textContent = 'Invalid or expired coupon code.';
-                message.className = 'text-xs font-bold mt-2 text-red-500 block';
-            }
-            updateCartUI();
-        }
-
         function updateCartUI() {
             const cartItemsContainer = document.getElementById('cart-items');
             const cartCount = document.getElementById('cart-count');
             const cartSubtotalEl = document.getElementById('cart-subtotal');
-            const cartDiscountEl = document.getElementById('cart-discount');
             const cartTotalEl = document.getElementById('cart-total');
-            const discountRow = document.getElementById('discount-row');
 
             cartItemsContainer.innerHTML = '';
             let subtotal = 0;
@@ -1588,10 +1539,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
             if (cart.length === 0) {
                 cartItemsContainer.innerHTML = '<p class="text-gray-500 text-center mt-10">Your cart is empty.</p>';
-                // Reset coupon if cart is empty
-                isCouponApplied = false;
-                document.getElementById('coupon-code').value = '';
-                document.getElementById('coupon-message').classList.add('hidden');
             } else {
                 cart.forEach((item, index) => {
                     const itemTotal = item.price * item.quantity;
@@ -1618,40 +1565,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 });
             }
 
-            // Calculate final totals and discount (ONLY on laddus)
-            let finalTotal = subtotal;
-            let discountAmount = 0;
-
-            if (isCouponApplied && subtotal > 0) {
-                let ladduTotal = 0;
-                
-                // Sum up the cost of only items with "Laddu" in the name
-                cart.forEach((item) => {
-                    if (item.name.toLowerCase().includes('laddu')) {
-                        ladduTotal += (item.price * item.quantity);
-                    }
-                });
-
-                if (ladduTotal > 0) {
-                    discountAmount = ladduTotal * 0.10;
-                    finalTotal = subtotal - discountAmount;
-                    discountRow.classList.remove('hidden');
-                    document.getElementById('coupon-message').textContent = 'Coupon applied successfully! 10% OFF on Laddus';
-                    document.getElementById('coupon-message').className = 'text-xs font-bold mt-2 text-green-600 block';
-                } else {
-                    discountRow.classList.add('hidden');
-                    document.getElementById('coupon-message').textContent = 'Code applied, but your cart has no Laddus!';
-                    document.getElementById('coupon-message').className = 'text-xs font-bold mt-2 text-orange-500 block';
-                }
-            } else {
-                discountRow.classList.add('hidden');
-            }
-
             // Update UI elements
             cartCount.innerText = count;
             cartSubtotalEl.innerText = '₹' + subtotal;
-            cartDiscountEl.innerText = '-₹' + discountAmount.toFixed(2);
-            cartTotalEl.innerText = '₹' + Math.round(finalTotal);
+            cartTotalEl.innerText = '₹' + subtotal; // No discount applied
             
             // Pop animation on cart icon
             if (count > 0) {
@@ -1715,26 +1632,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
             message += `━━━━━━━━━━━━━━\n`;
             message += `*Subtotal: ₹${subtotal}*\n`;
-
-            let finalTotal = subtotal;
-            
-            // Re-calculate laddu discount for checkout message
-            if (isCouponApplied) {
-                let ladduTotal = 0;
-                cart.forEach((item) => {
-                    if (item.name.toLowerCase().includes('laddu')) {
-                        ladduTotal += (item.price * item.quantity);
-                    }
-                });
-                
-                if (ladduTotal > 0) {
-                    let discountAmount = ladduTotal * 0.10;
-                    finalTotal = subtotal - discountAmount;
-                    message += `*Discount (LADDU10): -₹${discountAmount.toFixed(2)}*\n`;
-                }
-            }
-
-            message += `*Final Total: ₹${Math.round(finalTotal)}*\n`;
+            message += `*Final Total: ₹${subtotal}*\n`;
             message += `━━━━━━━━━━━━━━\n\n`;
             
             message += `📍 *Delivery Details:*\n`;
