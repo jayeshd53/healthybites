@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Sheet Data</title>
+
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            padding:20px;
+            background:#f5f5f5;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            background:#fff;
+            box-shadow:0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        th, td{
+            border:1px solid #ddd;
+            padding:12px;
+            text-align:left;
+        }
+
+        th{
+            background:#007bff;
+            color:white;
+        }
+
+        tr:nth-child(even){
+            background:#f9f9f9;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Google Sheet Data</h2>
+
+    <table id="sheetTable">
+        <thead></thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        const sheetId = "1WcRNJVOYoUydFsg9Lnx3dS9liOw2E0aKXAqtO1wl8Ag";
+
+        const url =
+          `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
+
+        fetch(url)
+            .then(res => res.text())
+            .then(text => {
+                const json = JSON.parse(
+                    text.substring(47).slice(0, -2)
+                );
+
+                const rows = json.table.rows;
+                const cols = json.table.cols;
+
+                const thead = document.querySelector("#sheetTable thead");
+                const tbody = document.querySelector("#sheetTable tbody");
+
+                let headerRow = "<tr>";
+                cols.forEach(col => {
+                    headerRow += `<th>${col.label}</th>`;
+                });
+                headerRow += "</tr>";
+                thead.innerHTML = headerRow;
+
+                rows.forEach(row => {
+                    let tr = "<tr>";
+
+                    cols.forEach((col, index) => {
+                        tr += `<td>${row.c[index] ? row.c[index].v : ""}</td>`;
+                    });
+
+                    tr += "</tr>";
+                    tbody.innerHTML += tr;
+                });
+            })
+            .catch(err => {
+                console.error(err);
+                document.body.innerHTML +=
+                    "<p>Unable to load sheet data. Make sure the sheet is public.</p>";
+            });
+    </script>
+
+</body>
+</html>
